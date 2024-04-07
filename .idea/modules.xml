@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Algorithms_Coursera/Algorithms_Coursera.iml" filepath="$PROJECT_DIR$/Algorithms_Coursera/Algorithms_Coursera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DS_Algorithms.iml" filepath="$PROJECT_DIR$/DS_Algorithms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Algorithms_Coursera/Data Structures and Complexity/Data Structures and Complexity.iml" filepath="$PROJECT_DIR$/Algorithms_Coursera/Data Structures and Complexity/Data Structures and Complexity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SoftUni_Course/SoftUni_Course.iml" filepath="$PROJECT_DIR$/SoftUni_Course/SoftUni_Course.iml" />
+    </modules>
+  </component>
+</project>
