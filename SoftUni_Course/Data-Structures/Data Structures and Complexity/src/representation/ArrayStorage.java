@@ -18,10 +18,28 @@ public class ArrayStorage {
 
     private void add(int element, int index) {
         if (index == this.elements.length) {
-            // TODO: Add grow method call here
+            grow(elements);
         }
         this.elements[index] = element;
     }
 
-    // TODO: Implement additional operations like: remove(int element), contains(int element) and more
+    private void grow(int[] elements) {
+        int[] result = new int[elements.length*2];
+
+        System.arraycopy(elements, 0, result, 0, elements.length);
+    }
+
+    public boolean remove(int element){
+        if(element > elements.length){
+            throw new IndexOutOfBoundsException();
+        }
+        for (int i = 0; i < this.elements.length; i++) {
+            if(this.elements[i] == element){
+                this.elements[i] = 0;
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
