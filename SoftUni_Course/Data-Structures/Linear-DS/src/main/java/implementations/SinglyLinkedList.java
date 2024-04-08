@@ -77,7 +77,7 @@ public class SinglyLinkedList<E> implements LinkedList<E> {
             E value = this.head.value;
 
             this.head =null;
-
+            this.size--;
             return value;
         }
 
@@ -91,6 +91,8 @@ public class SinglyLinkedList<E> implements LinkedList<E> {
         }
 
         preLast.next = null;
+
+        this.size--;
 
         return toRemove.value;
     }
