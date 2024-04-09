@@ -5,25 +5,70 @@ import interfaces.Deque;
 import java.util.Iterator;
 
 public class ArrayDeque<E> implements Deque<E> {
-    @Override
-    public void add(E Element) {
+    private final int INITIAL_CAPACITY = 7;
+    private int size;
+    private int head;
+    private int tail;
 
+    private Object[] elements;
+    public ArrayDeque(){
+        this.elements = new Object[INITIAL_CAPACITY];
+        int middle = INITIAL_CAPACITY/2;
+        head=tail=middle;
+
+    }
+
+    @Override
+    public void add(E element) {
+        addLast(element);
     }
 
     @Override
     public void offer(E element) {
-
+        addLast(element);
     }
 
     @Override
     public void addFirst(E element) {
-
+        if(this.size==0){
+            this.addLast(element);
+        }else{
+            if(this.head==0){
+                this.elements=grow();
+            }
+            this.elements[--this.head] = element;
+            this.size++;
+        }
     }
 
     @Override
     public void addLast(E element) {
-
+        if(this.size==0){
+            this.elements[this.tail] = element;
+        }else{
+            if(this.tail==this.elements.length-1){
+                this.elements = grow();
+            }
+            this.elements[++this.tail] = element;
+        }
+        this.size++;
     }
+
+    private Object[] grow() {
+        int newCapacity = this.elements.length*2 + 1;
+        Object[] newElements = new Object[newCapacity];
+        int middle = newCapacity/2;
+
+        int begin = middle - this.size/2;
+        int index = this.head;
+        for (int i = begin; index<=this.tail ; i++) {
+            newElements[i] = this.elements[index++];
+        }
+        this.head=begin;
+        this.tail = this.head +this.size -1;
+        return  newElements;
+    }
+
 
     @Override
     public void push(E element) {
@@ -87,7 +132,7 @@ public class ArrayDeque<E> implements Deque<E> {
 
     @Override
     public int capacity() {
-        return 0;
+        return this.elements.length - this.size;
     }
 
     @Override
@@ -97,7 +142,7 @@ public class ArrayDeque<E> implements Deque<E> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return this.size==0;
     }
 
     @Override
