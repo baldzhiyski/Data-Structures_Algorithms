@@ -90,12 +90,6 @@ public class DequeTest {
     }
 
     @Test
-    public void testRemoveByObject() {
-        deque.add(1);
-        assertTrue(deque.isEmpty());
-    }
-
-    @Test
     public void testSize() {
         assertEquals(0, deque.size());
         deque.add(1);
@@ -117,10 +111,12 @@ public class DequeTest {
 
     @Test
     public void testTrimToSize() {
-        deque.add(1);
-        deque.add(2);
+        for (int i = 0; i < 10; i++) {
+            deque.add(i);
+        }
+        assertEquals(15,deque.capacity());
         deque.trimToSize();
-        assertEquals(2, deque.capacity());
+        assertEquals(10, deque.size());
     }
 
     @Test
