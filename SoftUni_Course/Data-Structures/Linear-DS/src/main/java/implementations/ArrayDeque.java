@@ -71,11 +71,6 @@ public class ArrayDeque<E> implements Deque<E> {
     }
 
     @Override
-    public boolean remove(Object object) {
-        return null;
-    }
-
-    @Override
     public E removeFirst() {
         return null;
     }

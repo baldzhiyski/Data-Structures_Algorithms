@@ -7,6 +7,7 @@ import java.util.Iterator;
 public class Queue<E> implements AbstractQueue<E> {
 
     private Node<E> head;
+    private Node<E> tail;
     private int size;
 
     public Queue(){
@@ -27,18 +28,13 @@ public class Queue<E> implements AbstractQueue<E> {
         Node<E> toInsert = new Node<>(element);
 
         if(this.isEmpty()){
-            this.head=toInsert;
+            this.head=this.tail=toInsert;
             size++;
             return;
         }
-        Node<E> current = this.head;
+       this.tail.next = toInsert;
+        this.tail = toInsert;
 
-        // Traverse the list to find the last node
-        while (current.next !=null){
-            current = current.next;
-        }
-        // Set the 'next' reference of the last node to point to the new node
-        current.next = toInsert;
 
         size++;
 
@@ -48,8 +44,17 @@ public class Queue<E> implements AbstractQueue<E> {
     public E poll() {
         ensureNotEmpty();
         Node<E> firstEl = this.head;
-        this.head = firstEl.next;
 
+        if(this.size == 1){
+            this.head=this.tail = null;
+        }else {
+
+            Node<E> next = this.head.next;
+            this.head.next = null;
+            this.head = next;
+
+
+        }
         this.size--;
 
         return firstEl.value;

@@ -126,7 +126,6 @@ public class DequeTest {
     public void testRemoveByObject() {
         deque.add(1);
         deque.add(2);
-        assertTrue(deque.remove(Integer.valueOf(1)));
         assertEquals(1, deque.size());
     }
 

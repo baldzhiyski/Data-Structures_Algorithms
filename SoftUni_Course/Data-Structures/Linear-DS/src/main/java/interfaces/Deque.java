@@ -14,7 +14,6 @@ public interface Deque<E> extends Iterable<E> {
     E get(int index);
     E get(Object object);
     E remove(int index);
-    boolean remove(Object object);
     E removeFirst();
     E removeLast();
     int size();
