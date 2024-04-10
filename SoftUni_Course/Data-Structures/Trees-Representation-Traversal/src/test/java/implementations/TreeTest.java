@@ -49,6 +49,15 @@ public class TreeTest {
         }
     }
 
+//    @Test
+//    public void testStackDfs() {
+//        Integer[] expected = {1, 12, 31, 19, 21, 23, 6, 14, 7};
+//        int index = 0;
+//        for (Integer num : tree.orderDfsStack()) {
+//            assertEquals(expected[index++], num);
+//        }
+//    }
+
     @Test
     public void testAddTree() {
         tree.addChild(1, new Tree<>(-1, new Tree<>(-2), new Tree<>(-3)));

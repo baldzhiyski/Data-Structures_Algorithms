@@ -10,4 +10,6 @@ public interface AbstractTree<E> {
     void addChild(E parentKey, Tree<E> child);
 	void removeNode(E nodeKey);
     void swap(E firstKey, E secondKey);
+
+    List<E> orderDfsStack();
 }
