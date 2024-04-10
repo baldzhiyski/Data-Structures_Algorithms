@@ -2,10 +2,7 @@ package implementations;
 
 import interfaces.AbstractTree;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Tree<E> implements AbstractTree<E> {
 
@@ -150,18 +147,36 @@ public class Tree<E> implements AbstractTree<E> {
         Tree<E> firstParent = firstNode.parent;
         Tree<E> secondParent = secondNode.parent;
 
+        if(firstParent == null){
+            swapRoot(secondNode);
+            secondParent.parent=null;
+            return;
+        }
+
+        if(secondParent==null){
+            swapRoot(firstNode);
+            firstParent.parent=null;
+            return;
+        }
+
         // Update the parents
         firstNode.parent = secondParent;
         secondNode.parent =firstParent;
 
         // Update the children collection of  the node by getting the indexes
-        
+
         int firstIndex = firstParent.children.indexOf(firstNode);
         int secondIndex = secondParent.children.indexOf(secondNode);
 
         firstParent.children.set(firstIndex,secondNode);
         secondParent.children.set(secondIndex,firstNode);
 
+    }
+
+    private void swapRoot(Tree<E> node) {
+        this.value= node.value;
+        this.parent = null;
+        this.children = node.children;
     }
 
 }
