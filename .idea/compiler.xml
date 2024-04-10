@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="LinearDS" />
         <module name="Linear-DS" />
+        <module name="Trees-Representation-Traversal" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

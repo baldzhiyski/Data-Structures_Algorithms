@@ -46,11 +46,13 @@ public class ArrayList<E> implements List<E> {
             return false;
         }
 
+        E lastEl = (E) this.elements[size - 1];
+
+
         shiftRight(index);
 
-        E lastEl = (E) this.elements[size-1];
-        this.elements[size-1] = lastEl;
         this.elements[index] = element;
+        this.elements[size] = lastEl;
         this.size++;
 
         return true;

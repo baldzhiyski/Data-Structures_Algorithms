@@ -261,4 +261,42 @@ public class ArrayListTest {
 
         assertEquals(values, sb.toString());
     }
+
+    @Test
+    public void testAdd() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+
+        // Adding an element at index 1
+        assertTrue(list.add(1, "X"));
+
+        // Expected result: A X B C
+        assertEquals("A", list.get(0));
+        assertEquals("X", list.get(1));
+        assertEquals("B", list.get(2));
+        assertEquals("C", list.get(3));
+
+        // Adding an element at index 3
+        assertTrue(list.add(3, "Y"));
+
+        // Expected result: A X B Y C
+        assertEquals("A", list.get(0));
+        assertEquals("X", list.get(1));
+        assertEquals("B", list.get(2));
+        assertEquals("Y", list.get(3));
+        assertEquals("C", list.get(4));
+
+        // Adding an element at index 0
+        assertTrue(list.add(3, "Z"));
+
+        // Expected result:  A X B  Z Y C
+        assertEquals("Z", list.get(3));
+        assertEquals("A", list.get(0));
+        assertEquals("X", list.get(1));
+        assertEquals("B", list.get(2));
+        assertEquals("Y", list.get(4));
+        assertEquals("C", list.get(5));
+    }
 }
