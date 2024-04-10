@@ -61,10 +61,15 @@ public class ArrayDeque<E> implements Deque<E> {
 
         int begin = middle - this.size/2;
         int index = this.head;
+
+        // We want to set the new in the middle so we need to make small calculation
+
         for (int i = begin; index<=this.tail ; i++) {
             newElements[i] = this.elements[index++];
         }
         this.head=begin;
+
+        // Here we want to go to the end
         this.tail = this.head +this.size -1;
         return  newElements;
     }
@@ -168,12 +173,12 @@ public class ArrayDeque<E> implements Deque<E> {
         E result = getAt(realIndex);
 
         // Shift elements to the left to remove the element at the specified index
-        for (int i = realIndex; i < this.tail - 1; i++) {
+        for (int i = realIndex; i < this.tail; i++) {
             this.elements[i] = this.elements[i + 1];
         }
 
        // Nullify the element at the old tail position
-        this.elements[this.tail - 1] =null;
+        this.elements[this.tail] =null;
         // Adjust the tail index
         this.tail--;
 
