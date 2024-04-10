@@ -12,6 +12,7 @@ public class Queue<E> implements AbstractQueue<E> {
 
     public Queue(){
         this.head = null;
+        this.tail=null;
         this.size =0;
     }
     private static class Node<E>{
