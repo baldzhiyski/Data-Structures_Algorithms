@@ -2,8 +2,8 @@ package implementations;
 
 import interfaces.AbstractSecondTree;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class SecondTree<E> implements AbstractSecondTree<E> {
 
@@ -65,6 +65,27 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
         }
     }
 
+    public  List<SecondTree<E>> traverseWithBFSGetLeaves(){
+        Deque<SecondTree<E>> deque = new ArrayDeque<>();
+
+        deque.offer(this);
+        int level = 0;
+
+        List<SecondTree<E>> allNodes = new ArrayList<>();
+
+        while (!deque.isEmpty()){
+            SecondTree<E> tree = deque.poll();
+
+            allNodes.add(tree);
+            for (SecondTree<E> child : tree.children) {
+                deque.offer(child);
+            }
+        }
+
+        return allNodes;
+
+    }
+
     private String getPadding(int level) {
         StringBuilder res = new StringBuilder();
         for (int i = 0; i < level; i++) {
@@ -73,9 +94,16 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
         return res.toString();
     }
 
+    /*
+      Get the keys that are on the last level ordered
+     */
     @Override
     public List<E> getLeafKeys() {
-        return null;
+        return traverseWithBFSGetLeaves()
+                .stream()
+                .filter(tree -> tree.children.isEmpty())
+                .map(SecondTree::getKey)
+                .collect(Collectors.toList());
     }
 
     @Override
