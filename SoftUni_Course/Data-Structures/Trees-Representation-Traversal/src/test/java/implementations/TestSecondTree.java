@@ -56,6 +56,8 @@ public class TestSecondTree {
                 "  14\r\n" +
                 "    23\r\n" +
                 "    6", tree.getAsString());
+
+        System.out.println(tree.getAsString());
     }
 
     @Test

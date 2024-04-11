@@ -45,7 +45,32 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
 
     @Override
     public String getAsString() {
-        return null;
+        StringBuilder builder = new StringBuilder();
+
+        traverseTreeWithRecurrence(builder,0,this);
+
+        return builder.toString().trim();
+    }
+
+    private void traverseTreeWithRecurrence(StringBuilder builder, int level, SecondTree<E> treeBegin) {
+
+        // If there are no more children it will return
+
+        builder.append(getPadding(level))
+                .append(treeBegin.getKey())
+                .append(System.lineSeparator());
+
+        for (SecondTree<E> child : treeBegin.children) {
+            traverseTreeWithRecurrence(builder,level+2,child);
+        }
+    }
+
+    private String getPadding(int level) {
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            res.append(" ");
+        }
+        return res.toString();
     }
 
     @Override
