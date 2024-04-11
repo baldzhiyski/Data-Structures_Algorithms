@@ -22,6 +22,10 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
         }
     }
 
+    public SecondTree(){
+        this.children=new ArrayList<>();
+    }
+
     @Override
     public void setParent(SecondTree<E> parent) {
         this.parent = parent;
@@ -126,10 +130,11 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
 
     @Override
     public SecondTree<E> getDeepestLeftmostNode() {
-        return getNodeWithBFSTravercel();
+
+        return getNodeWithDFSTraversal();
     }
 
-    private SecondTree<E> getNodeWithBFSTravercel() {
+    private SecondTree<E> getNodeWithBFSTraversal() {
         List<SecondTree<E>> trees = this.traverseWithBFSGetLeaves();
 
 
@@ -137,15 +142,39 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
         SecondTree<E> deepestLeftNode = null;
         for (SecondTree<E> tree : trees) {
             if(tree.isLeaf()){
-               int currentPath = getStepsFromLeafToRoot(tree);
-               if(currentPath > maxPath){
-                   maxPath=currentPath;
-                   deepestLeftNode=tree;
-               }
+                int currentPath = getStepsFromLeafToRoot(tree);
+                if(currentPath > maxPath){
+                    maxPath=currentPath;
+                    deepestLeftNode=tree;
+                }
             }
         }
 
         return deepestLeftNode;
+    }
+    private SecondTree<E> getNodeWithDFSTraversal() {
+        List<SecondTree<E>>  deepestLeftNode = new ArrayList<>();
+        int[] maxPath = new int[1];
+        int max = 0;
+
+        deepestLeftNode.add(new SecondTree<>());
+
+        findDeepestNodeDFS(deepestLeftNode,maxPath,max,this);
+
+        return deepestLeftNode.get(0);
+    }
+
+    private void findDeepestNodeDFS(List<SecondTree<E>> deepestLeftNode, int[] maxPath, int max, SecondTree<E> eSecondTree) {
+        if(max>maxPath[0]) {
+            maxPath[0] = max;
+            deepestLeftNode.set(0, eSecondTree);
+        }
+
+        for (SecondTree<E> child : eSecondTree.children) {
+            findDeepestNodeDFS(deepestLeftNode,maxPath,max + 1,child);
+        }
+
+
     }
 
     private int getStepsFromLeafToRoot(SecondTree<E> tree) {
