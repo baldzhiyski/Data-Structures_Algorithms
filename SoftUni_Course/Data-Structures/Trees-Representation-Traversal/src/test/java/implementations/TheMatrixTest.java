@@ -23,6 +23,7 @@ public class TheMatrixTest {
 
         theMatrix.solve();
 
+
         String str = theMatrix.toOutputString();
         assertEquals(
                 "xxx\r\n" +
