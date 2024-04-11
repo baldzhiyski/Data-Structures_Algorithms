@@ -1,5 +1,8 @@
 package implementations;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class TheMatrix {
     private char[][] matrix;
     private char fillChar;
@@ -16,10 +19,45 @@ public class TheMatrix {
     }
 
     public void solve() {
-        fillMatrix(startRow,startCol);
+        fillMatrixWithStack();
     }
 
-    private void fillMatrix(int row, int col) {
+    private void fillMatrixWithStack() {
+        Deque<int[]> coordinates = new ArrayDeque<>();
+
+        coordinates.add(new int[]{startRow,startCol});
+
+        while (!coordinates.isEmpty()){
+            int[] position = coordinates.poll();
+
+            int row = position[0];
+            int col = position[1];
+
+            this.matrix[row][col] = fillChar;
+
+            if(isInBounds(row+1,col) && this.matrix[row+1][col]== this.toBeReplaced){
+                coordinates.offer(new int[]{row+1,col});
+            }
+
+            if(isInBounds(row,col+1) && this.matrix[row][col+1]== this.toBeReplaced){
+                coordinates.offer(new int[]{row,col+1});
+            }
+
+            if(isInBounds(row,col-1) && this.matrix[row][col-1]== this.toBeReplaced){
+                coordinates.offer(new int[]{row,col-1});
+            }
+
+            if(isInBounds(row-1,col) && this.matrix[row-1][col]== this.toBeReplaced){
+                coordinates.offer(new int[]{row-1,col});
+            }
+        }
+    }
+
+    private boolean isInBounds(int row, int col) {
+        return !isOutOfBounds(row,col);
+    }
+
+    private void fillMatrixRecursive(int row, int col) {
         if(isOutOfBounds(row,col) || this.matrix[row][col] != this.toBeReplaced){
             return;
         }
@@ -30,10 +68,10 @@ public class TheMatrix {
         System.out.println();
 
         // Now we need to see where we can go
-        this.fillMatrix(row + 1,col);
-        this.fillMatrix(row,col+1);
-        this.fillMatrix(row-1,col);
-        this.fillMatrix(row,col-1);
+        this.fillMatrixRecursive(row + 1,col);
+        this.fillMatrixRecursive(row,col+1);
+        this.fillMatrixRecursive(row-1,col);
+        this.fillMatrixRecursive(row,col-1);
 
 
     }

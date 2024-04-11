@@ -6,11 +6,11 @@ import implementations.Tree;
 import java.util.List;
 
 public interface AbstractSecondTree<E> {
-    void setParent(Tree<E> parent);
+    void setParent(SecondTree<E> parent);
 
-    void addChild(Tree<E> child);
+    void addChild(SecondTree<E> child);
 
-    Tree<E> getParent();
+    SecondTree<E> getParent();
 
     E getKey();
 

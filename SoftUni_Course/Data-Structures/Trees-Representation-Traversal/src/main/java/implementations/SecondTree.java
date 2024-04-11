@@ -7,17 +7,17 @@ import java.util.List;
 public class SecondTree<E> implements AbstractSecondTree<E> {
 
     @Override
-    public void setParent(Tree<E> parent) {
+    public void setParent(SecondTree<E> parent) {
 
     }
 
     @Override
-    public void addChild(Tree<E> child) {
+    public void addChild(SecondTree<E> child) {
 
     }
 
     @Override
-    public Tree<E> getParent() {
+    public SecondTree<E> getParent() {
         return null;
     }
 
