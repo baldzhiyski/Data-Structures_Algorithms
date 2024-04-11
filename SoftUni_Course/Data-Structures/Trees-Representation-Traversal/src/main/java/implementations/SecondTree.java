@@ -24,7 +24,7 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
 
     @Override
     public void setParent(SecondTree<E> parent) {
-        this.parent=parent;
+        this.parent = parent;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
     public String getAsString() {
         StringBuilder builder = new StringBuilder();
 
-        traverseTreeWithRecurrence(builder,0,this);
+        traverseTreeWithRecurrence(builder, 0, this);
 
         return builder.toString().trim();
     }
@@ -61,11 +61,18 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
                 .append(System.lineSeparator());
 
         for (SecondTree<E> child : treeBegin.children) {
-            traverseTreeWithRecurrence(builder,level+2,child);
+            traverseTreeWithRecurrence(builder, level + 2, child);
         }
     }
 
-    public  List<SecondTree<E>> traverseWithBFSGetLeaves(){
+    private void traverseTreeWithRecurrenceMiddleLeaves(List<SecondTree<E>> collection, SecondTree<E> treeBegin) {
+        collection.add(treeBegin);
+        for (SecondTree<E> child : treeBegin.children) {
+            traverseTreeWithRecurrenceMiddleLeaves(collection, child);
+        }
+    }
+
+    public List<SecondTree<E>> traverseWithBFSGetLeaves() {
         Deque<SecondTree<E>> deque = new ArrayDeque<>();
 
         deque.offer(this);
@@ -73,7 +80,7 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
 
         List<SecondTree<E>> allNodes = new ArrayList<>();
 
-        while (!deque.isEmpty()){
+        while (!deque.isEmpty()) {
             SecondTree<E> tree = deque.poll();
 
             allNodes.add(tree);
@@ -108,12 +115,52 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
 
     @Override
     public List<E> getMiddleKeys() {
-        return null;
+        List<SecondTree<E>> allNodes = new ArrayList<>();
+        this.traverseTreeWithRecurrenceMiddleLeaves(allNodes,this);
+        return allNodes
+                .stream()
+                .filter(tree-> tree.parent!=null && tree.children.size()>0)
+                .map(SecondTree::getKey)
+                .collect(Collectors.toList());
     }
 
     @Override
     public SecondTree<E> getDeepestLeftmostNode() {
-        return null;
+        return getNodeWithBFSTravercel();
+    }
+
+    private SecondTree<E> getNodeWithBFSTravercel() {
+        List<SecondTree<E>> trees = this.traverseWithBFSGetLeaves();
+
+
+        int maxPath = 0;
+        SecondTree<E> deepestLeftNode = null;
+        for (SecondTree<E> tree : trees) {
+            if(tree.isLeaf()){
+               int currentPath = getStepsFromLeafToRoot(tree);
+               if(currentPath > maxPath){
+                   maxPath=currentPath;
+                   deepestLeftNode=tree;
+               }
+            }
+        }
+
+        return deepestLeftNode;
+    }
+
+    private int getStepsFromLeafToRoot(SecondTree<E> tree) {
+        int counter = 0;
+        SecondTree<E> current = tree;
+        while (current.parent !=null){
+            counter++;
+            current=current.parent;
+        }
+
+        return counter;
+    }
+
+    private boolean isLeaf() {
+        return this.parent!=null && this.children.isEmpty();
     }
 
     @Override
