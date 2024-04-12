@@ -97,20 +97,26 @@ public class Tree<E> implements AbstractTree<E> {
 
     }
 
+    // Recursive method to find a node with a specific key in a tree
     private Tree<E> findRecursive(Tree<E> current, E parentKey) {
-
+        // Check if the current node's value matches the desired key
         if (current.value.equals(parentKey)) {
+            // If it matches, return the current node
             return current;
         }
 
-
+        // Iterate through each child node of the current node
         for (Tree<E> child : current.children) {
+            // Recursively search for the key in the child node
             Tree<E> found = this.findRecursive(child, parentKey);
+            // If the key is found in the child subtree
             if (found != null) {
+                // Return the found node
                 return found;
             }
         }
 
+        // If the key is not found in the current node or its children, return null
         return null;
     }
 
