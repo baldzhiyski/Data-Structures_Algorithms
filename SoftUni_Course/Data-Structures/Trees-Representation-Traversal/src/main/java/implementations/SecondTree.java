@@ -210,9 +210,35 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
 
     @Override
     public List<List<E>> pathsWithGivenSum(int sum) {
-        return null;
+        List<List<E>> result = new ArrayList<>();
+        List<E> currentPath = new ArrayList<>();
+        findPathsWithSum(this, sum, 0, currentPath, result);
+        return result;
     }
 
+    private void findPathsWithSum(SecondTree<E> node, int targetSum, int currentSum, List<E> currentPath, List<List<E>> result) {
+        if (node == null)
+            return;
+
+        // Add the current node to the path
+        currentPath.add(node.getKey());
+        currentSum += (Integer) node.getKey(); // Assuming keys are integers, modify as needed
+
+        // If the current node is a leaf and the sum matches the target sum, add the path to the result
+        if (node.children.isEmpty() && currentSum == targetSum) {
+            result.add(new ArrayList<>(currentPath));
+        }
+
+        // Recursively traverse the children
+        for (SecondTree<E> child : node.children) {
+            findPathsWithSum(child, targetSum, currentSum, currentPath, result);
+        }
+
+        // Backtrack: Remove the current node from the path and adjust the current sum
+        currentPath.remove(currentPath.size() - 1);
+        currentSum -= (Integer) node.getKey();
+
+    }
     @Override
     public List<SecondTree<E>> subTreesWithGivenSum(int sum) {
         return null;
