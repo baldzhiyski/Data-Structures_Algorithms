@@ -69,11 +69,25 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
         }
     }
 
-    private void traverseTreeWithRecurrenceMiddleLeaves(List<SecondTree<E>> collection, SecondTree<E> treeBegin) {
-        collection.add(treeBegin);
-        for (SecondTree<E> child : treeBegin.children) {
-            traverseTreeWithRecurrenceMiddleLeaves(collection, child);
+
+    private String getPadding(int level) {
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            res.append(" ");
         }
+        return res.toString();
+    }
+
+    /*
+      Get the keys that are on the last level ordered
+     */
+    @Override
+    public List<E> getLeafKeys() {
+        return traverseWithBFSGetLeaves()
+                .stream()
+                .filter(tree -> tree.children.isEmpty())
+                .map(SecondTree::getKey)
+                .collect(Collectors.toList());
     }
 
     public List<SecondTree<E>> traverseWithBFSGetLeaves() {
@@ -97,25 +111,6 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
 
     }
 
-    private String getPadding(int level) {
-        StringBuilder res = new StringBuilder();
-        for (int i = 0; i < level; i++) {
-            res.append(" ");
-        }
-        return res.toString();
-    }
-
-    /*
-      Get the keys that are on the last level ordered
-     */
-    @Override
-    public List<E> getLeafKeys() {
-        return traverseWithBFSGetLeaves()
-                .stream()
-                .filter(tree -> tree.children.isEmpty())
-                .map(SecondTree::getKey)
-                .collect(Collectors.toList());
-    }
 
     @Override
     public List<E> getMiddleKeys() {
@@ -126,6 +121,13 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
                 .filter(tree-> tree.parent!=null && tree.children.size()>0)
                 .map(SecondTree::getKey)
                 .collect(Collectors.toList());
+    }
+
+    private void traverseTreeWithRecurrenceMiddleLeaves(List<SecondTree<E>> collection, SecondTree<E> treeBegin) {
+        collection.add(treeBegin);
+        for (SecondTree<E> child : treeBegin.children) {
+            traverseTreeWithRecurrenceMiddleLeaves(collection, child);
+        }
     }
 
     @Override
@@ -194,7 +196,16 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
 
     @Override
     public List<E> getLongestPath() {
-        return null;
+        ArrayList<E> list = new ArrayList<>();
+        SecondTree<E> mostLeftNode = getNodeWithBFSTraversal();
+        while (mostLeftNode.parent!=null){
+            list.add(mostLeftNode.key);
+            mostLeftNode=mostLeftNode.parent;
+        }
+        // Adding the root
+        list.add(mostLeftNode.key);
+        Collections.reverse(list);
+        return list;
     }
 
     @Override
