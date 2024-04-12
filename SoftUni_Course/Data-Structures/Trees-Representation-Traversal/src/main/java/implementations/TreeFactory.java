@@ -44,7 +44,7 @@ public class TreeFactory {
 
     public void addEdge(int parent, int child) {
         SecondTree<Integer> parentByKey = this.createNodeByKey(parent);
-        SecondTree<Integer> childByKey = createNodeByKey(child);
+        SecondTree<Integer> childByKey = this.createNodeByKey(child);
 
         childByKey.setParent(parentByKey);
         parentByKey.addChild(childByKey);
