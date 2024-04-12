@@ -56,7 +56,7 @@ public class Tree<E> implements AbstractTree<E> {
         for (Tree<E> child : node.children) {
             doDfs(child, result);
         }
-        // When there are no more children , we add the value to the list
+        // When there are no more children , we add the value to the list and then it will return one level up to the next child
         result.add(node.value);
     }
 
