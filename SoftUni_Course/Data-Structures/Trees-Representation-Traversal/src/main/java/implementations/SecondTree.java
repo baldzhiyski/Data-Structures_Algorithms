@@ -256,9 +256,9 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
         // Check the sum of the subtree rooted at the current node
         int subtreeSum = sumSubtree(node);
 
-        // If the sum matches the target sum, add the subtree to the result
+        // If the sum matches the target sum, add the entire subtree to the result
         if (subtreeSum == targetSum) {
-            result.add(node);
+            addSubtreeToResult(node, result);
         }
 
         // Recursively check subtrees of the current node
@@ -271,11 +271,20 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
         if (node == null)
             return 0;
 
-        int sum = (Integer) node.getKey(); // Assuming keys are integers
+        int sum = (Integer) node.getKey(); // Assuming keys are integers, modify as needed
         for (SecondTree<E> child : node.children) {
             sum += sumSubtree(child);
         }
         return sum;
+    }
+
+    private void addSubtreeToResult(SecondTree<E> node, List<SecondTree<E>> result) {
+        // Add the entire subtree rooted at the current node to the result
+        result.add(node); // Add the current node
+        // Recursively add all children of the current node to the result
+        for (SecondTree<E> child : node.children) {
+            addSubtreeToResult(child, result);
+        }
     }
 
 
