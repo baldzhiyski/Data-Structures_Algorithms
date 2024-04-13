@@ -41,8 +41,8 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
         }
     }
 
-    private boolean isLess(int childIndex, int parentIndex) {
-        return getAt(childIndex).compareTo(getAt(parentIndex)) > 0;
+    private boolean isLess(int parentIndex, int childIndex) {
+        return getAt(childIndex).compareTo(getAt(parentIndex)) < 0;
     }
 
     private E getAt(int index){
