@@ -37,4 +37,26 @@ public class MaxHeapTest {
         assertEquals(8, this.maxHeap.size());
     }
 
+    @Test
+    public void testBulkInsertion() {
+        // Create a new MaxHeap
+        MaxHeap<Integer> maxHeap = new MaxHeap<>();
+
+        // Create a list of elements to be added in bulk
+        List<Integer> elementsToAdd = new ArrayList<>();
+        elementsToAdd.add(10);
+        elementsToAdd.add(5);
+        elementsToAdd.add(15);
+        elementsToAdd.add(7);
+        elementsToAdd.add(20);
+        elementsToAdd.add(12);
+
+        // Add elements to the MaxHeap in bulk
+        maxHeap.addBulk(elementsToAdd);
+
+        // Assertions
+        assertEquals(elementsToAdd.size(), maxHeap.size());
+        assertEquals(Integer.valueOf(20), maxHeap.peek());
+    }
+
 }

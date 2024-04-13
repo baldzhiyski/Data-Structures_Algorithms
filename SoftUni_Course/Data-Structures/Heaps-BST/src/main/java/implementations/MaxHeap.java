@@ -3,6 +3,7 @@ package implementations;
 import interfaces.Heap;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 /*
@@ -56,5 +57,44 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
     @Override
     public E peek() {
         return this.elements.get(0);
+    }
+    // Bulk insertion method
+    public void addBulk(Collection<E> collection) {
+        // Add all elements from the collection to the end of the list
+        elements.addAll(collection);
+
+        // Restore the heap property
+        int startIndex = getParentIndex(elements.size() - 1); // Start from the parent of the last element
+        for (int i = startIndex; i >= 0; i--) {
+            heapifyDown(i);
+        }
+    }
+
+    // Helper method to restore the heap property by heapifying down
+    private void heapifyDown(int index) {
+        int largest = index;
+        int leftChild = getLeftChildIndex(index);
+        int rightChild = getRightChildIndex(index);
+
+        // Find the largest among the current node, left child, and right child
+        if (leftChild < elements.size() && isLess(leftChild, largest)) {
+            largest = leftChild;
+        }
+        if (rightChild < elements.size() && isLess(rightChild, largest)) {
+            largest = rightChild;
+        }
+
+        // If the largest element is not the current node, swap and continue heapifying down
+        if (largest != index) {
+            Collections.swap(elements, index, largest);
+            heapifyDown(largest);
+        }
+    }
+    private int getLeftChildIndex(int index) {
+        return 2 * index + 1;
+    }
+
+    private int getRightChildIndex(int index) {
+        return 2 * index + 2;
     }
 }
