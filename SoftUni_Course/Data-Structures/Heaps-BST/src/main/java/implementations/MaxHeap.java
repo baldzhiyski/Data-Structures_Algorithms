@@ -35,10 +35,9 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
     }
 
     private void heapifyUp(int index) {
-        int parentIndex = getParentIndex(index);
-        while (index > 0 && isLess(index,parentIndex)){
-            Collections.swap(this.elements,index,parentIndex);
-            index=parentIndex;
+        while (index > 0 && isLess(index,getParentIndex(index))){
+            Collections.swap(this.elements,index,getLeftChildIndex(index));
+            index=getParentIndex(index);
         }
     }
 
@@ -56,7 +55,7 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
 
     @Override
     public E peek() {
-        if(getAt(0)==null){
+        if(this.elements.isEmpty()){
             throw new IllegalStateException("Heap is empty !");
         }
         return this.elements.get(0);
