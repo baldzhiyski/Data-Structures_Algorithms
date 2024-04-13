@@ -68,4 +68,33 @@ public class BinarySearchTreeTest {
         assertEquals(Integer.valueOf(1), left.value);
         assertEquals(Integer.valueOf(8), right.value);
     }
+    @Test
+    public void testContains() {
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+
+        // Insert elements into the tree
+        tree.insert(10);
+        tree.insert(5);
+        tree.insert(15);
+        tree.insert(3);
+        tree.insert(7);
+        tree.insert(12);
+        tree.insert(20);
+
+        // Test contains method with existing elements
+        assertTrue(tree.contains(10));
+        assertTrue(tree.contains(5));
+        assertTrue(tree.contains(15));
+        assertTrue(tree.contains(3));
+        assertTrue(tree.contains(7));
+        assertTrue(tree.contains(12));
+        assertTrue(tree.contains(20));
+
+        // Test contains method with non-existing elements
+        assertFalse(tree.contains(2));
+        assertFalse(tree.contains(8));
+        assertFalse(tree.contains(11));
+        assertFalse(tree.contains(18));
+        assertFalse(tree.contains(25));
+    }
 }
