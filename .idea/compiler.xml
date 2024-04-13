@@ -6,8 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="LinearDS" />
         <module name="Linear-DS" />
+        <module name="LinearDS" />
+        <module name="Heaps-BST" />
         <module name="Trees-Representation-Traversal" />
       </profile>
     </annotationProcessing>
