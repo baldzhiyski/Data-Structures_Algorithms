@@ -56,6 +56,9 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
 
     @Override
     public E peek() {
+        if(getAt(0)==null){
+            throw new IllegalStateException("Heap is empty !");
+        }
         return this.elements.get(0);
     }
     // Bulk insertion method
