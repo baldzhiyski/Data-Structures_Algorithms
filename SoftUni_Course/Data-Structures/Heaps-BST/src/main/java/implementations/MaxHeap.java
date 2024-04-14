@@ -35,14 +35,14 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
     }
 
     private void heapifyUp(int index) {
-        while (index > 0 && isLess(index,getParentIndex(index))){
+        while (index > 0 && isLess(getParentIndex(index),index)){
             Collections.swap(this.elements,index,getParentIndex(index));
             index=getParentIndex(index);
         }
     }
 
     private boolean isLess(int parentIndex, int childIndex) {
-        return getAt(childIndex).compareTo(getAt(parentIndex)) < 0;
+        return getAt(parentIndex).compareTo(getAt(childIndex)) < 0;
     }
 
     private E getAt(int index){
@@ -79,10 +79,10 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
         int rightChild = getRightChildIndex(index);
 
         // Find the largest among the current node, left child, and right child
-        if (leftChild < elements.size() && isLess(leftChild, largest)) {
+        if (leftChild < elements.size() && isLess(largest, leftChild)) {
             largest = leftChild;
         }
-        if (rightChild < elements.size() && isLess(rightChild, largest)) {
+        if (rightChild < elements.size() && isLess(largest, rightChild)) {
             largest = rightChild;
         }
 
