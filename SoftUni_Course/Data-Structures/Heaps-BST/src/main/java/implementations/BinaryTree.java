@@ -187,25 +187,40 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
 
 
     public List<E> topView() {
+        // Create a HashMap to store the offset to value and level mappings
         Map<E, Pair<E,E>> offsetToValueLevel = new HashMap();
-        
-        traverseTree(this,0,1, (Map<Integer, Pair<E, E>>) offsetToValueLevel);
 
-       return offsetToValueLevel.values()
+        // Traverse the tree and populate the offsetToValueLevel map
+        traverseTree(this, 0, 1, (Map<Integer, Pair<E, E>>) offsetToValueLevel);
+
+        // Return the values of the map, sorted by their levels
+        return offsetToValueLevel.values()
                 .stream()
                 .map(Pair::getKey)
                 .collect(Collectors.toList());
     }
 
-    private void traverseTree(BinaryTree<E> binaryTree, int offset, int level, Map<Integer, Pair<E, E>> offsetToValueLevel ) {
-        if(binaryTree==null){
+    // Helper method to recursively traverse the tree
+    private void traverseTree(BinaryTree<E> binaryTree, int offset, int level, Map<Integer, Pair<E, E>> offsetToValueLevel) {
+        // Base case: if the current node is null, return
+        if(binaryTree == null) {
             return;
         }
+
+        // Check if there's already a value at the current offset
         Pair<E, E> currentValueLevel = offsetToValueLevel.get(offset);
-        if(currentValueLevel==null || level< Integer.parseInt(String.valueOf(currentValueLevel.getValue()))){
-            offsetToValueLevel.put(offset, (Pair<E, E>) new Pair<>(binaryTree.key,level));
+
+        // If there's no value or the current level is less than the existing level for this offset,
+        // update the value for this offset with the current node's value and level
+        if(currentValueLevel == null || level < Integer.parseInt(String.valueOf(currentValueLevel.getValue()))) {
+            offsetToValueLevel.put(offset, (Pair<E, E>) new Pair<>(binaryTree.key, level));
         }
-        traverseTree(binaryTree.leftChild,offset-1,level+1,offsetToValueLevel);
-        traverseTree(binaryTree.rightChild,offset+1,level+1,offsetToValueLevel);
+
+        // Recursively traverse the left subtree with a decreased offset and increased level
+        traverseTree(binaryTree.leftChild, offset - 1, level + 1, offsetToValueLevel);
+
+        // Recursively traverse the right subtree with an increased offset and increased level
+        traverseTree(binaryTree.rightChild, offset + 1, level + 1, offsetToValueLevel);
     }
+
 }
