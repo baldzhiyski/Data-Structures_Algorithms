@@ -1,34 +1,31 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class   QuickSort {
+public class QuickSort {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int[] numbers = Arrays.stream(scan.nextLine().split("\\s+"))
                 .mapToInt(Integer::parseInt)
                 .toArray();
         quickSort(numbers, 0, numbers.length - 1);
-        // quick sort = moves smaller elements to left of a pivot.
-        // recursively divide array in 2 partitions
-
-        // run-time complexity - best case : (n log(n))
-        // Average case 0(n log(n))
-        // Worst case 0(n^2) if already sorted
 
         for (int num : numbers) {
             System.out.print(num + " ");
         }
     }
 
-    private static void quickSort(int[] arr, int low, int high) {
+    public static void quickSort(int[] array, int low, int high) {
         if (low < high) {
+            // Swap middle element with the last element
+            int middle = (low + high) / 2;
+            swap(array, middle, high);
+
             // Partition the array and get the pivot index
-            int pivotIndex = partition(arr, low, high);
+            int pivotIndex = partition(array, low, high);
 
             // Recursively sort the subarrays on both sides of the pivot
-            // using the same strategy
-            quickSort(arr, low, pivotIndex - 1);
-            quickSort(arr, pivotIndex + 1, high);
+            quickSort(array, low, pivotIndex - 1);
+            quickSort(array, pivotIndex + 1, high);
         }
     }
 
@@ -47,20 +44,20 @@ public class   QuickSort {
                 smallerIndex++;
 
                 // Swap the smaller element with the current element
-                int temp = array[smallerIndex];
-                array[smallerIndex] = array[j];
-                array[j] = temp;
+                swap(array, smallerIndex, j);
             }
         }
 
         // Swap the pivot element with the element at the smaller element index + 1
-        // so each  item before pivot is less than it and each after higher
-        int temp = array[smallerIndex + 1];
-        array[smallerIndex + 1] = array[high];
-        array[high] = temp;
+        swap(array, smallerIndex + 1, high);
 
-        // Return the pivot index
+        // Return the correct pivot index
         return smallerIndex + 1;
     }
 
+    public static void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 }
