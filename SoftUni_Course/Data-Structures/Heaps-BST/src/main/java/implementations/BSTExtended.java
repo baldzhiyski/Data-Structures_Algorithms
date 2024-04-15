@@ -222,6 +222,8 @@ public class BSTExtended <E extends Comparable<E>>{
         if(cmp<0){
             return nodeRank(current.getLeft(),element);
         }else if(cmp>0){
+            // We add the count of the left because in bst on the left are always smaller and we go
+            // further to the right to make sure there
             return getNodeCount(current.getLeft()) + 1 + nodeRank(current.getRight(),element);
         }else{
             return getNodeCount(current.getLeft());
@@ -233,60 +235,89 @@ public class BSTExtended <E extends Comparable<E>>{
     }
 
     public E ceil(E element) {
-        if(this.root==null){
-            return null;
+        // Check if the tree is empty
+        if (this.root == null) {
+            return null; // If empty, return null
         }
 
-        Node<E> current = this.root;
-        Node<E> nearestLarger = null;
+        Node<E> current = this.root; // Start from the root
+        Node<E> nearestLarger = null; // Store the nearest larger node
 
-        while (current!=null) {
-            int cmp = element.compareTo(current.getValue());
+        // Traverse the tree
+        while (current != null) {
+            int cmp = element.compareTo(current.getValue()); // Compare the given element with the current node's value
+
+            // If the given element is greater than the current node's value
             if (cmp > 0) {
-                current = current.getRight();
-            } else if (cmp < 0) {
-                nearestLarger=current;
-                current = current.getLeft();
-            }else{
-                Node<E> right = current.getRight();
-                if(right !=null && nearestLarger!=null){
-                    int cmp2 = right.getValue().compareTo(nearestLarger.getValue());
-                    nearestLarger = cmp2<0 ? right : nearestLarger;
-                }else if (nearestLarger==null){
-                    nearestLarger=right;
+                current = current.getRight(); // Move to the right child
+            }
+            // If the given element is less than the current node's value
+            else if (cmp < 0) {
+                nearestLarger = current; // Update nearestLarger to the current node
+                current = current.getLeft(); // Move to the left child
+            }
+            // If the given element is equal to the current node's value
+            else {
+                Node<E> right = current.getRight(); // Get the right child of the current node
+
+                // If there is a right child and nearestLarger is not null
+                if (right != null && nearestLarger != null) {
+                    int cmp2 = right.getValue().compareTo(nearestLarger.getValue()); // Compare the right child's value with nearestLarger's value
+                    nearestLarger = cmp2 < 0 ? right : nearestLarger; // Update nearestLarger if right child is smaller
                 }
-                break;
+                // If nearestLarger is null
+                else if (nearestLarger == null) {
+                    nearestLarger = right; // Update nearestLarger to the right child
+                }
+                break; // Break out of the loop
             }
         }
-        return nearestLarger==null ? null :nearestLarger.getValue();
+
+        // Return the value of the nearestLarger node, or null if nearestLarger is null
+        return nearestLarger == null ? null : nearestLarger.getValue();
     }
+
 
     public E floor(E element) {
-        if(this.root==null){
-            return null;
+        // Check if the tree is empty
+        if (this.root == null) {
+            return null; // If empty, return null
         }
 
-        Node<E> current = this.root;
-        Node<E> nearestSmaller = null;
+        Node<E> current = this.root; // Start from the root
+        Node<E> nearestSmaller = null; // Store the nearest smaller node
 
-        while (current!=null) {
-            int cmp = element.compareTo(current.getValue());
+        // Traverse the tree
+        while (current != null) {
+            int cmp = element.compareTo(current.getValue()); // Compare the given element with the current node's value
+
+            // If the given element is greater than the current node's value
             if (cmp > 0) {
-                nearestSmaller=current;
-                current = current.getRight();
-            } else if (cmp < 0) {
-                current = current.getLeft();
-            }else{
-                Node<E> left = current.getLeft();
-                if(left !=null && nearestSmaller!=null){
-                    int cmp2 = left.getValue().compareTo(nearestSmaller.getValue());
-                    nearestSmaller = cmp2>0 ? left : nearestSmaller;
-                }else if (nearestSmaller==null){
-                    nearestSmaller=left;
+                nearestSmaller = current; // Update nearestSmaller to the current node
+                current = current.getRight(); // Move to the right child
+            }
+            // If the given element is less than the current node's value
+            else if (cmp < 0) {
+                current = current.getLeft(); // Move to the left child
+            }
+            // If the given element is equal to the current node's value
+            else {
+                Node<E> left = current.getLeft(); // Get the left child of the current node
+
+                // If there is a left child and nearestSmaller is not null
+                if (left != null && nearestSmaller != null) {
+                    int cmp2 = left.getValue().compareTo(nearestSmaller.getValue()); // Compare the left child's value with nearestSmaller's value
+                    nearestSmaller = cmp2 > 0 ? left : nearestSmaller; // Update nearestSmaller if left child is greater (we need the closest!!! smaller value )
                 }
-                break;
+                // If nearestSmaller is null
+                else if (nearestSmaller == null) {
+                    nearestSmaller = left; // Update nearestSmaller to the left child
+                }
+                break; // Break out of the loop
             }
         }
-        return nearestSmaller==null ? null :nearestSmaller.getValue();
+        // Return the value of the nearestSmaller node, or null if nearestSmaller is null
+        return nearestSmaller == null ? null : nearestSmaller.getValue();
     }
+
 }
