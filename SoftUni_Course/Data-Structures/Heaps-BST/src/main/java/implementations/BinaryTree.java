@@ -122,50 +122,65 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
     }
 
     public E findLowestCommonAncestor(E first, E second) {
+        // Find paths from root to the nodes containing 'first' and 'second' values
         List<E> firstPath = findPath(first);
         List<E> secondPath = findPath(second);
 
+        // Find the smaller size between the two paths
         int smallerSize = Math.min(firstPath.size(), secondPath.size());
 
+        // Iterate over the paths until a different node is found
         int i = 0;
         for (; i < smallerSize; i++) {
-            if(!firstPath.get(i).equals(secondPath.get(i))){
+            if (!firstPath.get(i).equals(secondPath.get(i))) {
                 break;
             }
         }
 
-
-        return firstPath.get(i-1);
+        // Return the value of the last common node (i-1) found in the paths
+        return firstPath.get(i - 1);
     }
 
+    // Finds the path from the root to the node containing the given element
     private List<E> findPath(E element) {
         List<E> result = new ArrayList<>();
-        findNodePath(this,element,result);
-
+        // Find the path recursively
+        findNodePath(this, element, result);
         return result;
     }
 
+    // Recursive method to find the path from the current node to the node containing the given element
     private boolean findNodePath(BinaryTree<E> binaryTree, E element, List<E> result) {
-        if(binaryTree==null){
+        // Base case: If the current node is null, return false
+        if (binaryTree == null) {
             return false;
         }
-        if(binaryTree.key==element){
+        // If the current node contains the element, add it to the path and return true
+        if (binaryTree.key.equals(element)) {
+            result.add(binaryTree.key);
             return true;
         }
+        // Add the current node to the path
         result.add(binaryTree.key);
 
+        // Recursively search in the left subtree
         boolean leftResult = findNodePath(binaryTree.leftChild, element, result);
-        if(leftResult) {
+        // If found in the left subtree, return true
+        if (leftResult) {
             return true;
         }
+        // Recursively search in the right subtree
         boolean rightResult = findNodePath(binaryTree.rightChild, element, result);
-        if(rightResult){
+        // If found in the right subtree, return true
+        if (rightResult) {
             return true;
         }
 
-        result.remove((E)binaryTree.key);
+        // If the element is not found in the subtree rooted at the current node, remove it from the path and return false
+        result.remove(binaryTree.key);
         return false;
     }
+
 
     public List<E> topView() {
         return null;
