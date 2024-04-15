@@ -1,6 +1,7 @@
 package solutions;
 
 import interfaces.Heap;
+import interfaces.HeapSec;
 import model.Product;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class MinHeapTest {
 
     @Test
     public void testHeapifyUpAddOne() {
-        Heap<Product> heap = new MinHeap<>();
+        HeapSec<Product> heap = new MinHeap<>();
         heap.add(new Product(13));
         assertEquals(13, heap.peek().getPrice());
     }

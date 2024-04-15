@@ -120,4 +120,13 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
             forEachInOrder(current.rightChild,consumer);
         }
     }
+
+    public E findLowestCommonAncestor(E first, E second) {
+
+        return null;
+    }
+
+    public List<E> topView() {
+        return null;
+    }
 }

@@ -2,8 +2,9 @@ package solutions;
 
 import interfaces.Decrease;
 import interfaces.Heap;
+import interfaces.HeapSec;
 
-public class MinHeap<E extends Comparable<E> & Decrease<E>> implements Heap<E> {
+public class MinHeap<E extends Comparable<E> & Decrease<E>> implements HeapSec<E> {
 
     @Override
     public int size() {
