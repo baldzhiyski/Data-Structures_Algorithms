@@ -122,8 +122,49 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
     }
 
     public E findLowestCommonAncestor(E first, E second) {
+        List<E> firstPath = findPath(first);
+        List<E> secondPath = findPath(second);
 
-        return null;
+        int smallerSize = Math.min(firstPath.size(), secondPath.size());
+
+        int i = 0;
+        for (; i < smallerSize; i++) {
+            if(!firstPath.get(i).equals(secondPath.get(i))){
+                break;
+            }
+        }
+
+
+        return firstPath.get(i-1);
+    }
+
+    private List<E> findPath(E element) {
+        List<E> result = new ArrayList<>();
+        findNodePath(this,element,result);
+
+        return result;
+    }
+
+    private boolean findNodePath(BinaryTree<E> binaryTree, E element, List<E> result) {
+        if(binaryTree==null){
+            return false;
+        }
+        if(binaryTree.key==element){
+            return true;
+        }
+        result.add(binaryTree.key);
+
+        boolean leftResult = findNodePath(binaryTree.leftChild, element, result);
+        if(leftResult) {
+            return true;
+        }
+        boolean rightResult = findNodePath(binaryTree.rightChild, element, result);
+        if(rightResult){
+            return true;
+        }
+
+        result.remove((E)binaryTree.key);
+        return false;
     }
 
     public List<E> topView() {
