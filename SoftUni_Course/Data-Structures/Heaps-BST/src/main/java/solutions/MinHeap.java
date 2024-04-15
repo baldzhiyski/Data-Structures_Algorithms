@@ -77,6 +77,7 @@ public class MinHeap<E extends Comparable<E> & Decrease<E>> implements HeapSec<E
             // Determine which child (left or right) to swap with
             if (rightChildIndex < this.data.size()) { // If the right child exists
                 swapIndex = isLess(swapIndex, rightChildIndex) ? swapIndex : rightChildIndex; // Choose the smaller of the two children
+                // If we choose the bigger we will ruin the heap property
             }
 
             // If the current node is less than or equal to its smallest child, no need to swap further

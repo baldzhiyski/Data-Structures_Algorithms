@@ -89,6 +89,7 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
         // If the largest element is not the current node, swap and continue heapifying down
         if (largest != index) {
             Collections.swap(elements, index, largest);
+            // After changing them we continue in order not to violate the max heap property
             heapifyDown(largest);
         }
     }

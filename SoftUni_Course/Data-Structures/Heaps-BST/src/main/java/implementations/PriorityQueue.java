@@ -82,29 +82,25 @@ public class PriorityQueue<E extends Comparable<E>> implements AbstractQueue<E> 
         return 2*index + 2;
     }
 
+    // HeapifyDown like MaxHeap
     private void heapifyDown(int index) {
-        // Loop until the current node is not a leaf node
-        while (index < this.elements.size() / 2) {
-            // Calculate the index of the left child
-            int child = getLeftChildIndex(index);
+        int largest = index;
+        int leftChild = getLeftChildIndex(index);
+        int rightChild = getRightChildIndex(index);
 
-            // Check if the right child exists and is larger than the left child
-            if (getRightChildIndex(index)< this.elements.size() && isLess(child, getRightChildIndex(index))) {
-                // If so, update the child index to point to the right child
-                child = getRightChildIndex(index);
-            }
+        // Find the largest among the current node, left child, and right child
+        if (leftChild < elements.size() && isLess(largest, leftChild)) {
+            largest = leftChild;
+        }
+        if (rightChild < elements.size() && isLess(largest, rightChild)) {
+            largest = rightChild;
+        }
 
-            // Compare the larger child with the parent node
-            if (isLess(child, index)) {
-                // If the parent is larger than or equal to the larger child, break out of the loop
-                break;
-            }
-
-            // Swap the parent with the larger child to maintain the max heap property
-            Collections.swap(this.elements, index, child);
-
-            // Update the index to continue the heapification process downward
-            index = child;
+        // If the largest element is not the current node, swap and continue heapifying down
+        if (largest != index) {
+            Collections.swap(elements, index, largest);
+            // After changing them we continue in order not to violate the max heap property
+            heapifyDown(largest);
         }
     }
 }
