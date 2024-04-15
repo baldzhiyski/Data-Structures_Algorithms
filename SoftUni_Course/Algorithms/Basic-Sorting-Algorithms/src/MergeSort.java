@@ -22,27 +22,28 @@ public class MergeSort {
         merge(arr, left, right);
     }
     public static void merge(int[] array, int[] leftArray, int[] rightArray) {
-        int leftLength = leftArray.length;
-        int rightLength = rightArray.length;
-        int i = 0, j = 0, k = 0;
+        int leftIndex = 0;      // Index for tracking the current position in the left array
+        int rightIndex = 0;     // Index for tracking the current position in the right array
+        int mergedIndex = 0;    // Index for tracking the current position in the merged array
 
-        // Compare elements of left and right arrays and merge them into original array
-        while (i < leftLength && j < rightLength) {
-            if (leftArray[i] <= rightArray[j]) {
-                array[k++] = leftArray[i++];
-            } else {
-                array[k++] = rightArray[j++];
+        // Compare elements of left and right arrays and merge them into the original array
+        while (leftIndex < leftArray.length && rightIndex < rightArray.length) {
+            // If the current element in the left array is smaller or equal, add it to the merged array
+            if (leftArray[leftIndex] <= rightArray[rightIndex]) {
+                array[mergedIndex++] = leftArray[leftIndex++];
+            } else {  // Otherwise, add the current element from the right array to the merged array
+                array[mergedIndex++] = rightArray[rightIndex++];
             }
         }
 
-        // Copy remaining elements of left array, if any
-        while (i < leftLength) {
-            array[k++] = leftArray[i++];
+        // Copy any remaining elements from the left array to the merged array
+        while (leftIndex < leftArray.length) {
+            array[mergedIndex++] = leftArray[leftIndex++];
         }
 
-        // Copy remaining elements of right array, if any
-        while (j < rightLength) {
-            array[k++] = rightArray[j++];
+        // Copy any remaining elements from the right array to the merged array
+        while (rightIndex < rightArray.length) {
+            array[mergedIndex++] = rightArray[rightIndex++];
         }
     }
 
