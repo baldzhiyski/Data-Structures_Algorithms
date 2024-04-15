@@ -1,10 +1,14 @@
 package implementations;
 
 import interfaces.AbstractBinaryTree;
+import solutions.Pair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class BinaryTree<E> implements AbstractBinaryTree<E> {
     private  E key;
@@ -183,6 +187,25 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
 
 
     public List<E> topView() {
-        return null;
+        Map<E, Pair<E,E>> offsetToValueLevel = new HashMap();
+        
+        traverseTree(this,0,1, (Map<Integer, Pair<E, E>>) offsetToValueLevel);
+
+       return offsetToValueLevel.values()
+                .stream()
+                .map(Pair::getKey)
+                .collect(Collectors.toList());
+    }
+
+    private void traverseTree(BinaryTree<E> binaryTree, int offset, int level, Map<Integer, Pair<E, E>> offsetToValueLevel ) {
+        if(binaryTree==null){
+            return;
+        }
+        Pair<E, E> currentValueLevel = offsetToValueLevel.get(offset);
+        if(currentValueLevel==null || level< Integer.parseInt(String.valueOf(currentValueLevel.getValue()))){
+            offsetToValueLevel.put(offset, (Pair<E, E>) new Pair<>(binaryTree.key,level));
+        }
+        traverseTree(binaryTree.leftChild,offset-1,level+1,offsetToValueLevel);
+        traverseTree(binaryTree.rightChild,offset+1,level+1,offsetToValueLevel);
     }
 }
