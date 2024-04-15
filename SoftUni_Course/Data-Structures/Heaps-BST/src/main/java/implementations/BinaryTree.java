@@ -212,6 +212,7 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
 
         // If there's no value or the current level is less than the existing level for this offset,
         // update the value for this offset with the current node's value and level
+        // We update in order  not to take the nodes that are inside the tree
         if(currentValueLevel == null || level < Integer.parseInt(String.valueOf(currentValueLevel.getValue()))) {
             offsetToValueLevel.put(offset, (Pair<E, E>) new Pair<>(binaryTree.key, level));
         }
