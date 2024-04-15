@@ -25,7 +25,7 @@ public class MinHeapTest {
 
     @Test
     public void testHeapifyUpAddOne() {
-        HeapSec<Product> heap = new MinHeap<>();
+        MinHeap<Product> heap = new MinHeap<>();
         heap.add(new Product(13));
         assertEquals(13, heap.peek().getPrice());
     }
@@ -49,5 +49,14 @@ public class MinHeapTest {
         heap.decrease(new Product(3));
 
         assertEquals(2, heap.peek().getPrice());
+    }
+
+    @Test
+    public  void testHeapifyDown(){
+        minHeap.poll();
+        assertEquals(6,minHeap.peek().getPrice());
+
+        minHeap.poll();
+        assertEquals(8,minHeap.peek().getPrice());
     }
 }
