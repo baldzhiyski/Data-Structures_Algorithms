@@ -61,40 +61,36 @@ public class MinHeap<E extends Comparable<E> & Decrease<E>> implements HeapSec<E
         ensureNonEmpty();
         Collections.swap(this.data,0,data.size()-1);
         E toReturn = this.data.remove(this.data.size() - 1);
-        this.heapifyDown();
+        this.heapifyDown(0);
 
         return toReturn;
     }
 
-    private void heapifyDown() {
-        int index = 0; // Start from the root node
-        int swapIndex = getLeftChildIndex(index); // Initialize the swap index to the left child of the root
+    private void heapifyDown(int index) {
+        int smallestIndex = index; // Assume the current node is the smallest
+        int leftChildIndex = getLeftChildIndex(index); // Get the index of the left child
 
-        // Continue heapifying down as long as the current node has at least one child
-        while (swapIndex < this.data.size()) {
-            int rightChildIndex = getRightChildIndex(index); // Get the index of the right child
+        // If the left child exists and it's smaller than the current smallest node
+        if (leftChildIndex < this.data.size() && isLess(leftChildIndex, smallestIndex)) {
+            smallestIndex = leftChildIndex; // Update the smallest index to the left child's index
+        }
 
-            // Determine which child (left or right) to swap with
-            if (rightChildIndex < this.data.size()) { // If the right child exists
-                swapIndex = isLess(swapIndex, rightChildIndex) ? swapIndex : rightChildIndex; // Choose the smaller of the two children
-            }
+        int rightChildIndex = getRightChildIndex(index); // Get the index of the right child
 
-            // If the current node is less than or equal to its smallest child, no need to swap further
-            if (isLess(index, swapIndex)) {
-                break;
-            }
+        // If the right child exists and it's smaller than the current smallest node
+        if (rightChildIndex < this.data.size() && isLess(rightChildIndex, smallestIndex)) {
+            smallestIndex = rightChildIndex; // Update the smallest index to the right child's index
+        }
 
-            // Swap the current node with its smallest child
-            Collections.swap(this.data, index, swapIndex);
+        // If the smallest node is not the current node
+        if (smallestIndex != index) {
+            // Swap the current node with the smallest child
+            Collections.swap(this.data, index, smallestIndex);
 
-            // Move down the tree to the position of the smallest child
-            index = swapIndex;
-
-            // Update the swap index to the left child of the new current node
-            swapIndex = getLeftChildIndex(index);
+            // Recursively heapify down at the position of the smallest child
+            heapifyDown(smallestIndex);
         }
     }
-
     private int getLeftChildIndex(int index) {
         return 2*index +1;
     }
