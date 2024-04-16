@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Linear-DS" />
+        <module name="ТripАdministrator" />
         <module name="LinearDS" />
         <module name="Heaps-BST" />
         <module name="Trees-Representation-Traversal" />
+        <module name="BarberShop" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
