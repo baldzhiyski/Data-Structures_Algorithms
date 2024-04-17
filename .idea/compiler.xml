@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Linear-DS" />
+        <module name="B-Trees_2-3-Trees_AVL-Trees" />
         <module name="ТripАdministrator" />
-        <module name="LinearDS" />
         <module name="Heaps-BST" />
         <module name="Trees-Representation-Traversal" />
+        <module name="Linear-DS" />
+        <module name="LinearDS" />
         <module name="BarberShop" />
       </profile>
     </annotationProcessing>
