@@ -1,5 +1,3 @@
-package Lab;
-
 public class Node<T extends Comparable<T>> {
 
     public T value;
