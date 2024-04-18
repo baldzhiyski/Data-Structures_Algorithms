@@ -1,7 +1,7 @@
 package test.correctness;
 
 
-import main.Hierarchy;
+import hierarchy.Hierarchy;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -10,6 +10,7 @@ import test.helpers.IterableExtensions;
 import test.types.CorrectnessTests;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class GetCommonElements extends BaseTest {

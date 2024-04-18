@@ -1,3 +1,5 @@
+package hierarchy;
+
 public interface IHierarchy<T> extends Iterable<T> {
 
     int getCount();

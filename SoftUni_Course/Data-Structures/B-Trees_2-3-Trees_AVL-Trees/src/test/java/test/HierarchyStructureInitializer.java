@@ -1,7 +1,7 @@
 package test;
 
-import main.Hierarchy;
-import main.IHierarchy;
+import hierarchy.Hierarchy;
+import hierarchy.IHierarchy;
 
 public class HierarchyStructureInitializer {
     

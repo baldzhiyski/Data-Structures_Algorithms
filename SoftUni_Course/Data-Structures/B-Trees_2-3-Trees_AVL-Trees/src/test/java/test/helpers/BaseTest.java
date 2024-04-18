@@ -1,6 +1,6 @@
 package test.helpers;
 
-import main.IHierarchy;
+import hierarchy.IHierarchy;
 import org.junit.Before;
 import test.HierarchyStructureInitializer;
 
