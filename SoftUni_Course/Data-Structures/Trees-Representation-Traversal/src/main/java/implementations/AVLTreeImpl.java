@@ -90,6 +90,8 @@ public class AVLTreeImpl<T extends Comparable<T>> implements AVLTree<T> {
 
         // left-heavy situation
         if(balance>1){
+            // If the left child of the current node is right-heavy,
+            // a double rotation (left-right rotation) is required.
             if(balance(node.getLeft()) < 0){
                 node.setLeft(rotateLeft(node.getLeft()));
             }
@@ -98,6 +100,8 @@ public class AVLTreeImpl<T extends Comparable<T>> implements AVLTree<T> {
 
         // right-heavy situation
         if(balance<-1){
+            // If the right child of the current node is left-heavy,
+            // a double rotation (right-left rotation) is required.
             if(balance(node.getRight())>0){
                 node.setRight(rotateRight(node.getRight()));
             }
