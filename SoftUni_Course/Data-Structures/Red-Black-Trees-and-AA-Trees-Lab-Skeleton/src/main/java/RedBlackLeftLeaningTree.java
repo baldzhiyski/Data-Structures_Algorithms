@@ -57,20 +57,17 @@ public class RedBlackLeftLeaningTree<T extends Comparable<T>> {
             node.right = this.insert(node.right, value);
         }
 
-        // Red-black tree balancing operations ( all cases) 
+        // Red-black tree balancing operations ( all cases)
         if (!isRed(node.left) && isRed(node.right)) {
             // If the left child is not red and the right child is red, rotate left
             node = rotateLeft(node);
-        } else if (isRed(node.left) && isRed(node.left.left)) {
+        }
+        if (isRed(node.left) && isRed(node.left.left)) {
             // If the left child and its left child are both red, rotate right and flip colors
             node = rotateRight(node);
             node = flipColors(node);
-        } else if (isRed(node.left) && isRed(node.left.right)) {
-            // If the left child and its right child are both red, rotate left on the left child and then right on the current node, and flip colors
-            node.left = rotateLeft(node.left);
-            node = rotateRight(node);
-            node = flipColors(node);
-        } else if (isRed(node.left) && isRed(node.right)) {
+        }
+        if (isRed(node.left) && isRed(node.right)) {
             // If both children are red, flip colors
             node = flipColors(node);
         }
