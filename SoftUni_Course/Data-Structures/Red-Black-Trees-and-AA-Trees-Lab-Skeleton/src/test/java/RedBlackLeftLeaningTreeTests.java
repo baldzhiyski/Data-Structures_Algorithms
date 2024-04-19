@@ -4,11 +4,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RedBlackTreeTests {
+public class RedBlackLeftLeaningTreeTests {
 
     @Test
     public void insert_SingleElement_ShouldIncreaseCount() {
-        RedBlackTree<Integer> rbt = new RedBlackTree<>();
+        RedBlackLeftLeaningTree<Integer> rbt = new RedBlackLeftLeaningTree<>();
         rbt.insert(5);
 
         Assert.assertEquals(1, rbt.getNodesCount());
@@ -16,7 +16,7 @@ public class RedBlackTreeTests {
 
     @Test
     public void insert_MultipleElements_ShouldBeInsertedCorrectly()  {
-        RedBlackTree<Integer> rbt = new RedBlackTree<>();
+        RedBlackLeftLeaningTree<Integer> rbt = new RedBlackLeftLeaningTree<>();
         rbt.insert(5);
         rbt.insert(12);
         rbt.insert(18);
@@ -41,7 +41,7 @@ public class RedBlackTreeTests {
 
     @Test
     public void insert_multipleElements_shouldBeBalanced() {
-        RedBlackTree<Integer> rbt = new RedBlackTree<>();
+        RedBlackLeftLeaningTree<Integer> rbt = new RedBlackLeftLeaningTree<>();
         rbt.insert(5);
         rbt.insert(12);
         rbt.insert(18);
@@ -58,7 +58,7 @@ public class RedBlackTreeTests {
 
     @Test
     public void insert_MultipleElements_ShouldHaveQuickFind() {
-        RedBlackTree<Integer> rbt = new RedBlackTree<>();
+        RedBlackLeftLeaningTree<Integer> rbt = new RedBlackLeftLeaningTree<>();
 
         for (int i = 0; i < 100000; i++) {
             rbt.insert(i);
