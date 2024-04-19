@@ -122,20 +122,32 @@ public class TwoThreeTree<K extends Comparable<K>> {
         }
 
         // Handle split of a 3-node parent
-        K promoteValue;
-        TreeNode<K> left, right;
+        K promoteValue; // The key to be promoted to the parent node
+        TreeNode<K> left, right; // The left and right children of the new parent node after split
+
         if (toFix.leftKey.compareTo(node.leftKey) < 0) {
-            promoteValue = node.leftKey;
-            left = toFix;
+            // If the left key of the child node to fix is smaller than the left key of the parent node
+            promoteValue = node.leftKey; // Promote the left key of the parent node
+            left = toFix; // The left child of the new parent is the child node to fix
             right = new TreeNode<>(node.rightKey, node.middleChild, node.rightChild);
+            // The right child of the new parent is a new node with the right key of the parent
+            // and the middle and right children of the parent
         } else if (toFix.leftKey.compareTo(node.rightKey) > 0) {
-            promoteValue = node.rightKey;
+            // If the left key of the child node to fix is greater than the right key of the parent node
+            promoteValue = node.rightKey; // Promote the right key of the parent node
             left = new TreeNode<>(node.leftKey, node.leftChild, node.middleChild);
-            right = toFix;
+            // The left child of the new parent is a new node with the left key of the parent
+            // and the left and middle children of the parent
+            right = toFix; // The right child of the new parent is the child node to fix
         } else {
-            promoteValue = toFix.leftKey;
+            // If the left key of the child node to fix is between the left and right keys of the parent node
+            promoteValue = toFix.leftKey; // Promote the left key of the child node to fix
             left = new TreeNode<>(node.leftKey, node.leftChild, toFix.leftChild);
+            // The left child of the new parent is a new node with the left key of the parent
+            // and the left child of the child node to fix
             right = new TreeNode<>(node.rightKey, toFix.rightChild, node.rightChild);
+            // The right child of the new parent is a new node with the right key of the parent
+            // and the right child of the child node to fix
         }
 
         // Return a new node representing the split and promotion
