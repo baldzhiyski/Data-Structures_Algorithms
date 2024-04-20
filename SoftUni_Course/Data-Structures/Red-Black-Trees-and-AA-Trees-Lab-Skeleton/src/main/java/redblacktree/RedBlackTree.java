@@ -10,9 +10,86 @@ public class RedBlackTree<T extends Comparable<T>>{
     public RedBlackTree<T> insert(T data) {
         Node<T> node = new Node<>(data); // Create a new node
         root = insert(root, node); // Insert the new node into the tree
-        recolorAndRotate(node); // Perform recoloring and rotations to maintain Red-Black tree properties
+        recolorAndRotateRec(node); // Perform recoloring and rotations to maintain Red-Black tree properties from inserted node
         return this;
     }
+    public RedBlackTree<T> delete(T data){
+        root = delete(root,data);
+        recolorAndRotateRec(root);
+        return this;
+    }
+
+    private Node<T> delete(Node<T> root, T data) {
+        // If the tree is empty or the key is not found, return null
+        if (root == null) {
+            return root;
+        }
+
+        int cmp = data.compareTo(root.getData());
+
+        // If the key is smaller than the value of the current node, go to the left subtree
+        if (cmp<0) {
+            root.setLeftChild(delete(root.getLeftChild(), data));
+        }
+        // If the key is larger than the value of the current node, go to the right subtree
+        else if (cmp>0) {
+            root.setRightChild(delete(root.getRightChild(), data));
+        }
+        // If the key is found
+        else {
+            // Case 1: Node has no children or only one child
+            if (root.getLeftChild() == null) {
+                return root.getRightChild(); // Return the right child (or null if it's also null)
+            } else if (root.getRightChild() == null) {
+                return root.getLeftChild(); // Return the left child
+            }
+
+            // Case 2: Node has two children
+            // Find the smallest node in the right subtree (successor) and replace the current node with it
+            root.setData(minValue(root.getRightChild()));
+            // Delete the successor node from the right subtree
+            root.setRightChild(delete(root.getRightChild(), root.getData()));
+        }
+
+        // Return the current node
+        return root;
+    }
+    private void recolorAndRotateRec(Node<T> node) {
+        // Recursively call recolorAndRotate on each child node
+        if (node != null) {
+            recolorAndRotateRec(node.getLeftChild()); // Recursively call on the left subtree
+            recolorAndRotateRec(node.getRightChild()); // Recursively call on the right subtree
+
+            // Perform recoloring and rotations for the current node
+            Node<T> parent = node.getParent();
+            // If the current node is not the root and its parent is red
+            if (node != root && parent.getColor() == RED) {
+                // Obtain the grandparent and uncle of the current node
+                Node<T> grandParent = parent.getParent();
+                Node<T> uncle = parent.isLeftChild() ? grandParent.getRightChild() : grandParent.getLeftChild();
+                // If the uncle of the current node is red, perform recoloring
+                if (uncle != null && uncle.getColor() == RED) {
+                    handleRecoloring(parent, uncle, grandParent);
+                } else if (parent.isLeftChild()) { // Handle left-leaning violation and uncle is not present
+                    handleLeftSituations(node, parent, grandParent);
+                } else if (!parent.isLeftChild()) { // Handle right-leaning violation and uncle is not present
+                    handleRightSituations(node, parent, grandParent);
+                }
+            }
+            root.setColor(BLACK); // Color the root node black
+        }
+    }
+
+    private T minValue(Node<T> node) {
+        if (node == null) {
+            return null; // Return null if the tree is empty
+        }
+        if (node.getLeftChild() == null) {
+            return node.getData(); // Return the data of the leftmost node
+        }
+        return minValue(node.getLeftChild());
+    }
+
 
     // Private method to recursively insert a node into the Red-Black tree
     private Node<T> insert(Node<T> node, Node<T> nodeToInsert) {
@@ -44,9 +121,9 @@ public class RedBlackTree<T extends Comparable<T>>{
             // If the uncle of the inserted node is red, perform recoloring
             if (uncle != null && uncle.getColor() == RED) {
                 handleRecoloring(parent, uncle, grandParent); // Handles  just switching the colors
-            } else if (parent.isLeftChild()) { // Handle left-leaning violation
+            } else if (parent.isLeftChild()) { // Handle left-leaning violation and uncle is no present
                 handleLeftSituations(node, parent, grandParent);
-            } else if (!parent.isLeftChild()) { // Handle right-leaning violation
+            } else if (!parent.isLeftChild()) { // Handle right-leaning violation and uncle is no present
                 handleRightSituations(node, parent, grandParent);
             }
         }
@@ -80,7 +157,7 @@ public class RedBlackTree<T extends Comparable<T>>{
         uncle.flipColor(); // Flip the colors of the parent, uncle, and grandparent nodes
         parent.flipColor();
         grandParent.flipColor();
-        recolorAndRotate(grandParent); // Recursively check for violations starting from the grandparent
+        recolorAndRotate(grandParent); // Recursively check for violations starting from the grandparent and moving upwards
     }
 
     // Method to rotate the subtree rooted at the given node to the right
