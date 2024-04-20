@@ -285,12 +285,12 @@ public class BSTExtendedTest {
         bst.insert(17);
 
         // Test when the element is smaller than all elements in the tree
-        assertNull(bst.floor(2)); // No floor for 2 in the tree
+        assertNull(bst.floorRecursive(2)); // No floor for 2 in the tree
 
         // Test when the element is larger than all elements in the tree
-        assertEquals(17, (int) bst.floor(20)); // Floor for 20 is 17
+        assertEquals(17, (int) bst.floorRecursive(20)); // Floor for 20 is 17
 
         // Test when the element is between two elements in the tree
-        assertEquals(7, (int) bst.floor(8)); // Floor for 8 is 7
+        assertEquals(7, (int) bst.floorRecursive(8)); // Floor for 8 is 7
     }
 }

@@ -319,5 +319,45 @@ public class BSTExtended <E extends Comparable<E>>{
         // Return the value of the nearestSmaller node, or null if nearestSmaller is null
         return nearestSmaller == null ? null : nearestSmaller.getValue();
     }
+    public E floorRecursive(E element) {
+        return floorRecursive(root, element, null);
+    }
+
+    private E floorRecursive(Node<E> current, E element, E floor) {
+        if (current == null)
+            return floor;
+
+        int cmp = element.compareTo(current.getValue());
+
+        if (cmp < 0) {
+            return floorRecursive(current.getLeft(), element, floor);
+        } else if (cmp > 0) {
+            floor = current.getValue();
+            return floorRecursive(current.getRight(), element, floor);
+        } else {
+            return current.getValue();
+        }
+    }
+
+    public E ceilRecursive(E element) {
+        return ceilRecursive(root, element, null);
+    }
+
+    private E ceilRecursive(Node<E> current, E element, E ceil) {
+        if (current == null)
+            return ceil;
+
+        int cmp = element.compareTo(current.getValue());
+
+        if (cmp < 0) {
+            ceil = current.getValue();
+            return ceilRecursive(current.getLeft(), element, ceil);
+        } else if (cmp > 0) {
+            return ceilRecursive(current.getRight(), element, ceil);
+        } else {
+            return current.getValue();
+        }
+    }
+
 
 }

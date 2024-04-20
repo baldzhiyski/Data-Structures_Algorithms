@@ -10,7 +10,7 @@ public class RedBlackTree<T extends Comparable<T>>{
     public RedBlackTree<T> insert(T data) {
         Node<T> node = new Node<>(data); // Create a new node
         root = insert(root, node); // Insert the new node into the tree
-        recolorAndRotateRec(node); // Perform recoloring and rotations to maintain Red-Black tree properties from inserted node
+        recolorAndRotate(node); // Perform recoloring and rotations to maintain Red-Black tree properties from inserted node
         return this;
     }
     public RedBlackTree<T> delete(T data){
