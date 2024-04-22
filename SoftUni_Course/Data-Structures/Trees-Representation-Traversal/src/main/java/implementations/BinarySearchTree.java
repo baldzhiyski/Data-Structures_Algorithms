@@ -177,7 +177,7 @@ public class BinarySearchTree<T extends Comparable<T>>{
     private TreeNode<T> deleteRec(TreeNode<T> root, T key) {
         // If the tree is empty or the key is not found, return null
         if (root == null) {
-            return root;
+            return null;
         }
 
         int cmp = key.compareTo(root.data);
