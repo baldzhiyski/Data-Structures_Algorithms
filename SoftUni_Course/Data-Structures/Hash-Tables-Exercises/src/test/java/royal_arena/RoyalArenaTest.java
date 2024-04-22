@@ -3,8 +3,7 @@ package royal_arena;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -179,5 +178,32 @@ class RoyalArenaTest {
 
         List<Battlecard> expected = Arrays.asList(card1, card2);
         assertEquals(expected, arena.getAllInSwagRange(10.0, 30.0));
+    }
+    @Test
+    void iterator_shouldIterateOverAllBattlecards() {
+        Battlecard card1 = new Battlecard(1, CardType.MELEE, "Card1", 10.0, 20.0);
+        Battlecard card2 = new Battlecard(2, CardType.RANGED, "Card2", 20.0, 30.0);
+        Battlecard card3 = new Battlecard(3, CardType.SPELL, "Card3", 15.0, 25.0);
+
+        arena.add(card1);
+        arena.add(card2);
+        arena.add(card3);
+
+        Set<Battlecard> iteratedCards = new HashSet<>();
+        Iterator<Battlecard> iterator = arena.iterator();
+
+        while (iterator.hasNext()) {
+            Battlecard nextCard = iterator.next();
+            iteratedCards.add(nextCard);
+        }
+
+        // Verify that all cards were iterated over
+        assertEquals(3, iteratedCards.size());
+        assertTrue(iteratedCards.contains(card1));
+        assertTrue(iteratedCards.contains(card2));
+        assertTrue(iteratedCards.contains(card3));
+
+        // Verify that calling next() after reaching the end throws NoSuchElementException
+        assertThrows(NoSuchElementException.class, iterator::next);
     }
 }

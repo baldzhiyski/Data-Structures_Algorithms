@@ -129,6 +129,29 @@ public class RoyalArena implements IArena {
 
     @Override
     public Iterator<Battlecard> iterator() {
-        return null;
+        return new BattleCardsIterator();
+    }
+
+    private class BattleCardsIterator implements Iterator<Battlecard> {
+        private List<Battlecard> cards;
+        private  int index;
+
+        public BattleCardsIterator(){
+            cards = new ArrayList<>();
+            cards.addAll(battleCards);
+            index = 0;
+        }
+        @Override
+        public boolean hasNext() {
+            return index < cards.size();
+        }
+
+        @Override
+        public Battlecard next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("No more elements in the iteration.");
+            }
+            return cards.get(index++);
+        }
     }
 }
