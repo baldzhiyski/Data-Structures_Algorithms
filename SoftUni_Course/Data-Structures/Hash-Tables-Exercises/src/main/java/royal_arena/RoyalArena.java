@@ -1,7 +1,9 @@
+package royal_arena;
+
 import java.util.Iterator;
 
 
-public class RoyaleArena implements IArena {
+public class RoyalArena implements IArena {
 
     @Override
     public void add(Battlecard card) {

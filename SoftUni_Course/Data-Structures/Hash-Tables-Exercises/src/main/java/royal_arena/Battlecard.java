@@ -1,3 +1,5 @@
+package royal_arena;
+
 import java.util.Objects;
 
 public class Battlecard implements Comparable<Battlecard> {

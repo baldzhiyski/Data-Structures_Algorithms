@@ -1,3 +1,5 @@
+package royal_arena;
+
 public interface IArena extends Iterable<Battlecard> {
     void add(Battlecard card);
 
