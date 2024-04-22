@@ -1,78 +1,130 @@
 package royal_arena;
 
-import java.util.Iterator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class RoyalArena implements IArena {
+    private Set<Battlecard> battleCards ;
+    private Map<Integer,Battlecard> cardsById;
 
+    public RoyalArena(){
+        this.cardsById = new HashMap<>();
+        this.battleCards = new HashSet<>();
+    }
     @Override
     public void add(Battlecard card) {
-        
+        if(!battleCards.contains(card)){
+            this.cardsById.put(card.getId(),card);
+            this.battleCards.add(card);
+        }
     }
 
     @Override
     public boolean contains(Battlecard card) {
-        return false;
+        return this.cardsById.containsKey(card.getId());
     }
 
     @Override
     public int count() {
-        return 0;
+        return this.cardsById.size();
     }
 
     @Override
     public void changeCardType(int id, CardType type) {
-
+        if(this.cardsById.containsKey(id)){
+            this.cardsById.get(id).setType(type);
+        }else{
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public Battlecard getById(int id) {
-        return null;
+        if(cardsById.containsKey(id)){
+            return this.cardsById.get(id);
+        }
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void removeById(int id) {
-
+        Battlecard battlecard = this.cardsById.get(id);
+        if(battlecard!=null) {
+            this.cardsById.remove(id);
+            this.battleCards.remove(battlecard);
+            return;
+        }
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Iterable<Battlecard> getByCardType(CardType type) {
-        return null;
+        return this.battleCards
+                .stream()
+                .filter(battlecard -> battlecard.getType().equals(type))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Iterable<Battlecard> getByTypeAndDamageRangeOrderedByDamageThenById(CardType type, int lo, int hi) {
-        return null;
+        return this.battleCards
+                .stream()
+                .filter(battlecard -> battlecard.getType().equals(type) && (battlecard.getDamage() >=lo && battlecard.getDamage()<=hi))
+                .sorted(Comparator.comparing(Battlecard::getDamage).thenComparing(Battlecard::getId))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Iterable<Battlecard> getByCardTypeAndMaximumDamage(CardType type, double damage) {
-        return null;
+        return battleCards
+                .stream()
+                .filter(battlecard -> battlecard.getType().equals(type) && battlecard.getDamage()<=damage)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Iterable<Battlecard> getByNameOrderedBySwagDescending(String name) {
-        return null;
+        return battleCards
+                .stream()
+                .filter(battlecard -> battlecard.getName().equals(name))
+                .sorted(Comparator.comparing(Battlecard::getSwag).reversed())
+                .collect(Collectors.toList());
     }
 
     @Override
     public Iterable<Battlecard> getByNameAndSwagRange(String name, double lo, double hi) {
-        return null;
+        return battleCards
+                .stream()
+                .filter(battlecard -> battlecard.getName().equals(name) &&
+                        battlecard.getSwag()>=lo && battlecard.getSwag()<=hi)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Iterable<Battlecard> getAllByNameAndSwag() {
-        return null;
+        return battleCards
+                .stream()
+                .sorted(Comparator.comparing(Battlecard::getSwag).reversed())
+                .collect(Collectors.toList());
     }
 
     @Override
     public Iterable<Battlecard> findFirstLeastSwag(int n) {
-        return null;
+        if(n>battleCards.size()) throw new UnsupportedOperationException();
+        return battleCards
+                .stream()
+                .sorted(Comparator.comparing(Battlecard::getSwag).thenComparing(Battlecard::getId))
+                .limit(n)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Iterable<Battlecard> getAllInSwagRange(double lo, double hi) {
-        return null;
+        return battleCards
+                .stream()
+                .filter(battlecard -> battlecard.getSwag()>=lo && battlecard.getSwag()<=hi)
+                .collect(Collectors.toList());
     }
 
     @Override
