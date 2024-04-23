@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="B-Trees_2-3-Trees_AVL-Trees" />
+        <module name="Data-Structures-Augmentation" />
         <module name="ТripАdministrator" />
         <module name="Hash-Tables-Sets-and-Maps-Skeleton" />
         <module name="Heaps-BST" />
