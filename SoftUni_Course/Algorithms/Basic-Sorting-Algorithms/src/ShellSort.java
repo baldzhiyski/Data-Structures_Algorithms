@@ -10,8 +10,8 @@ public record ShellSort<T extends Comparable<T>>(T[] arr) {
             for (int i = gap; i < arr.length; i++) {
                 int j = i; // Initialize j to the current index i
 
-                // Insertion sort within the current gap
-                while (j >= gap && arr[j].compareTo(arr[j - gap]) > 0) {
+                // Insertion sort within the current gap in ascending
+                while (j >= gap && arr[j].compareTo(arr[j - gap]) < 0) {
                     // Swap elements if they are out of order
                     T temp = arr[j];
                     arr[j] = arr[j - gap];
@@ -35,5 +35,28 @@ public record ShellSort<T extends Comparable<T>>(T[] arr) {
             arr[index - 1] = temp;
             sort(index - gap, gap);
         }
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        Integer[] array = {12, 34, 54, -10,2, 3, 9,1};
+
+        System.out.println("Array before sorting:");
+        printArray(array);
+
+        ShellSort<Integer> shellSort = new ShellSort<>(array);
+        shellSort.sort(array);
+
+
+        System.out.println("Array after sorting:");
+        printArray(array);
+    }
+
+    // Method to print the elements of the array
+    public static <T> void printArray(T[] array) {
+        for (T element : array) {
+            System.out.print(element + " ");
+        }
+        System.out.println();
     }
 }
