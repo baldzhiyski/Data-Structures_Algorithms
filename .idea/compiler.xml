@@ -22,6 +22,7 @@
     <bytecodeTargetLevel>
       <module name="Linear-Data-Structures" target="20" />
       <module name="LinearDS" target="13" />
+      <module name="Recursion-and-Backtracking" target="20" />
     </bytecodeTargetLevel>
   </component>
 </project>
