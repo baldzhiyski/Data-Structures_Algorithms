@@ -9,8 +9,7 @@ public class EightQueensPuzzle {
             {'-','-','-','-','-','-','-','-'},
             {'-','-','-','-','-','-','-','-'}
     };
-
-    public static boolean[][] freePositions =new boolean[8][8];
+    
     public static void main(String[] args) {
         findQueenPositions(0);
     }
