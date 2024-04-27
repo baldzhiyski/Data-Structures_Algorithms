@@ -15,7 +15,7 @@ public class CombinationsWithoutRep {
             for (int i = start; i < elements.length; i++) {
                 variations[index] = elements[i];
 
-                combinations(index+1, i+1);
+                combinations(index+1, i+1); // Allow repetition by passing the same start index ( just i)
             }
         }
     }
