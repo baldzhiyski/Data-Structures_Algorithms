@@ -1,3 +1,5 @@
+package lab;
+
 public class VariationsWithRep {
     static String[] elements = {"A", "B", "C"};
     static int k = 2; // Variation length

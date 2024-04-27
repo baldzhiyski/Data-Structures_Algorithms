@@ -1,3 +1,5 @@
+package lab;
+
 public class CombinationsWithoutRep {
     static String[] elements = {"A", "B", "C","D"};
     static  int k = 3;

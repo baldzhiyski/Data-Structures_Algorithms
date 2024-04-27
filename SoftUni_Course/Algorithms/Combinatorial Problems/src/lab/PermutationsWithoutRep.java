@@ -1,26 +1,22 @@
-import java.util.HashSet;
+package lab;
 
-public class PermutationsWithRep {
-    public  static String[] elements = {"A","B","B"};
+public class PermutationsWithoutRep {
+    public  static String[] elements = {"A","B","C"};
     public static void main(String[] args) {
+
         permute(0);
     }
+
     private static void permute(int index) {
         if(index==elements.length) {
             printPermutation();
             return;
         }
         permute(index + 1);
-        HashSet<String> swapped = new HashSet<>();
-        swapped.add(elements[index]);
         for (int i = index + 1; i < elements.length; i++) {
-            if(!swapped.contains(elements[i])){
-                swap(index,i);
-                permute(index + 1);
-                swap(index,i);
-                swapped.add(elements[i]);
-            }
-
+            swap(index,i);
+            permute(index + 1);
+            swap(index,i);
         }
 
 
@@ -36,4 +32,3 @@ public class PermutationsWithRep {
         System.out.println(String.join(" ",elements));
     }
 }
-

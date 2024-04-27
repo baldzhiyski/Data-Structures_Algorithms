@@ -1,3 +1,5 @@
+package lab;
+
 public class VariationsWithoutRep {
 
     static String[] elements = {"A", "B", "C"};
