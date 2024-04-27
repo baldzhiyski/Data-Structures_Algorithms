@@ -27,15 +27,24 @@ public class TowerOfHanoi {
     }
 
     private static void solve(int numberOfDisks, Deque<Integer> source, Deque<Integer> destination, Deque<Integer> spare) {
-        if(numberOfDisks==1){
+        // Base case: if there's only one disk to move
+        if (numberOfDisks == 1) {
+            // Move the disk directly from source to destination
             destination.push(source.pop());
             System.out.println("Step #" + (steps++) + ": Moved disk");
+            // Print the current state of the towers
             printState();
+        } else {
+            // Move the top (numberOfDisks-1) disks from source to spare,
+            // using destination as the temporary storage
+            solve(numberOfDisks - 1, source, spare, destination);
 
-        }else{
-            solve(numberOfDisks-1,source,spare,destination);
-            solve(1,source,destination,spare);
-            solve(numberOfDisks-1,spare,destination,source);
+            // Move the largest disk from source to destination
+            solve(1, source, destination, spare);
+
+            // Move the (numberOfDisks-1) disks from spare to destination,
+            // using source as the temporary storage
+            solve(numberOfDisks - 1, spare, destination, source);
         }
     }
 
