@@ -22,7 +22,7 @@ public class RedBlackTree<T extends Comparable<T>>{
     private Node<T> delete(Node<T> root, T data) {
         // If the tree is empty or the key is not found, return null
         if (root == null) {
-            return root;
+            return null;
         }
 
         int cmp = data.compareTo(root.getData());
