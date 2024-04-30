@@ -17,7 +17,7 @@ public class TopologicalSortTests {
         graph.put("F", new ArrayList<>());
 
         // Act
-        Collection<String> topSorter = Main.topSort(graph);
+        Collection<String> topSorter = TopologicalSort.topSort(graph);
 
         // Assert
         Assert.assertEquals("[A, B, E, D, C, F]", topSorter.toString());
@@ -34,7 +34,7 @@ public class TopologicalSortTests {
         graph.put("conditionals", new ArrayList<>(Arrays.asList("loops")));
 
         // Act
-        Collection<String> topSorter = Main.topSort(graph);
+        Collection<String> topSorter = TopologicalSort.topSort(graph);
 
         // Assert
         Assert.assertEquals("[IDEs, variables, conditionals, loops, bits]", topSorter.toString());
@@ -47,7 +47,7 @@ public class TopologicalSortTests {
         graph.put("A", new ArrayList<>());
 
         // Act
-        Collection<String> topSorted = Main.topSort(graph);
+        Collection<String> topSorted = TopologicalSort.topSort(graph);
 
         // Assert
         Assert.assertEquals("[A]", topSorted.toString());
@@ -60,7 +60,7 @@ public class TopologicalSortTests {
 
 
         // Act
-        Collection<String> topSorted = Main.topSort(graph);
+        Collection<String> topSorted = TopologicalSort.topSort(graph);
 
         // Assert
         Assert.assertEquals("[]", topSorted.toString());
@@ -80,7 +80,7 @@ public class TopologicalSortTests {
         graph.put("G", new ArrayList<>());
 
         // Act
-        Collection<String> topSorted = Main.topSort(graph);
+        Collection<String> topSorted = TopologicalSort.topSort(graph);
 
         // Assert
         String actual = topSorted.toString();
@@ -96,7 +96,7 @@ public class TopologicalSortTests {
         graph.put("Second", new ArrayList<>());
 
         // Act
-        Collection<String> topSorted = Main.topSort(graph);
+        Collection<String> topSorted = TopologicalSort.topSort(graph);
 
         // Assert
         Assert.assertEquals("[First, Second]", topSorted.toString());
@@ -111,7 +111,7 @@ public class TopologicalSortTests {
 
         // Act
         // Assert
-        Collection<String> topSorted = Main.topSort(graph);
+        Collection<String> topSorted = TopologicalSort.topSort(graph);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -128,6 +128,6 @@ public class TopologicalSortTests {
 
         // Act
         // Assert
-        Collection<String> topSorted = Main.topSort(graph);
+        Collection<String> topSorted = TopologicalSort.topSort(graph);
     }
 }

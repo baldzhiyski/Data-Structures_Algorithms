@@ -1,7 +1,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main {
+public class ConnectedComponents {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -80,8 +80,5 @@ public class Main {
                 }
             }
         }
-    }
-    public static Collection<String> topSort(Map<String, List<String>> graph) {
-        throw new AssertionError("Not Implemented");
     }
 }

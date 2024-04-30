@@ -33,7 +33,7 @@ public class ConnectedComponentsTests {
         deque.addAll(Arrays.asList(7));
         expected.add(deque);
 
-        List<Deque<Integer>> connectedComponents = Main.getConnectedComponents(graph);
+        List<Deque<Integer>> connectedComponents = ConnectedComponents.getConnectedComponents(graph);
 
         // Assert
         for (int i = 0; i < connectedComponents.size(); i++) {
@@ -63,7 +63,7 @@ public class ConnectedComponentsTests {
         deque.addAll(Arrays.asList(0));
         expected.add(deque);
 
-        List<Deque<Integer>> connectedComponents = Main.getConnectedComponents(graph);
+        List<Deque<Integer>> connectedComponents = ConnectedComponents.getConnectedComponents(graph);
 
         // Assert
         for (int i = 0; i < connectedComponents.size(); i++) {
@@ -87,7 +87,7 @@ public class ConnectedComponentsTests {
         // Act
         List<Deque<Integer>> expected = new ArrayList<>();
 
-        List<Deque<Integer>> connectedComponents = Main.getConnectedComponents(graph);
+        List<Deque<Integer>> connectedComponents = ConnectedComponents.getConnectedComponents(graph);
 
         // Assert
         for (int i = 0; i < connectedComponents.size(); i++) {
@@ -132,7 +132,7 @@ public class ConnectedComponentsTests {
         deque.addAll(Arrays.asList(5));
         expected.add(deque);
 
-        List<Deque<Integer>> connectedComponents = Main.getConnectedComponents(graph);
+        List<Deque<Integer>> connectedComponents = ConnectedComponents.getConnectedComponents(graph);
 
         // Assert
         for (int i = 0; i < connectedComponents.size(); i++) {
@@ -165,7 +165,7 @@ public class ConnectedComponentsTests {
         deque.addAll(Arrays.asList(3, 2, 1, 0));
         expected.add(deque);
 
-        List<Deque<Integer>> connectedComponents = Main.getConnectedComponents(graph);
+        List<Deque<Integer>> connectedComponents = ConnectedComponents.getConnectedComponents(graph);
 
         // Assert
         for (int i = 0; i < connectedComponents.size(); i++) {
