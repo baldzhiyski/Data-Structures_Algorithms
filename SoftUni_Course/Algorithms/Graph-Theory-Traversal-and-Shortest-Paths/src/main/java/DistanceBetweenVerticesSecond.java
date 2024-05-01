@@ -51,28 +51,46 @@ public class DistanceBetweenVerticesSecond {
     }
 
     private static void bfsTraversal(int source, int destination, int[] prev) {
+        // Create a queue to store nodes to be visited
         Deque<Integer> queue = new ArrayDeque<>();
 
-
+        // Enqueue the source node to start BFS traversal
         queue.offer(source);
+
+        // Initialize a boolean array to mark visited nodes
         boolean[] visited = new boolean[graph.length];
+
+        // Mark the source node as visited
         visited[source] = true;
 
+        // BFS traversal loop
         while (!queue.isEmpty()) {
+            // Dequeue a node from the front of the queue
             Integer node = queue.poll();
 
-            if (node == destination) return;
+            // Check if the dequeued node is the destination
+            if (node == destination) return; // If destination is reached, terminate
 
-            for (int i = 0; i<graph[node].length; i++) {
+            // Explore neighbors of the current node
+            for (int i = 0; i < graph[node].length; i++) {
+                // Get the index of the child node in the graph array using indexMapper
                 int child = indexMapper.get(graph[node][i]);
+
+                // If the child node is not visited
                 if (!visited[child]) {
+                    // Record the parent node of the child
                     prev[child] = node;
+
+                    // Mark the child node as visited
                     visited[child] = true;
+
+                    // Enqueue the child node for further exploration
                     queue.offer(child);
                 }
             }
         }
 
+        // If destination is not reachable from the source, mark source node with -1 in the prev array
         prev[source] = -1;
     }
 }
