@@ -8,9 +8,10 @@ public class CyclesInGraph {
 
         String line = scanner.nextLine();
 
-
         String source = null;
-        while (line.equals("End")) {
+
+        while (!line.equals("End")) {
+
             String[] tokens = line.split("-");
 
             if (source == null) {
@@ -26,15 +27,21 @@ public class CyclesInGraph {
 
         Set<String> visited = new HashSet<>();
         Set<String> cycles = new HashSet<>();
-
+        String out = "";
         try {
-            dfs(source, visited, cycles);
-            System.out.println("Acyclic: Yes");
-        }catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
-        }
-    }
 
+            for (String s : graph.keySet()) {
+                if (!visited.contains(s)) {
+                    dfs(s, visited, cycles);
+                    out = "Acyclic: Yes";
+                }
+            }
+
+        } catch (IllegalStateException ex) {
+            out = ex.getMessage();
+        }
+        System.out.println(out);
+    }
 
     private static void dfs(String source, Set<String> visited, Set<String> cycles) {
         if (cycles.contains(source)) {
