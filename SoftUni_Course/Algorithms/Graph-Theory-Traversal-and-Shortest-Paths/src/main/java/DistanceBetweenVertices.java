@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class DistanceBetweenVertices {
     public static boolean[] visited;
@@ -8,7 +7,7 @@ public class DistanceBetweenVertices {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int n = Integer.parseInt(scanner.nextLine());
+        int nodes = Integer.parseInt(scanner.nextLine());
         int pairs = Integer.parseInt(scanner.nextLine());
 
 
@@ -16,12 +15,12 @@ public class DistanceBetweenVertices {
         List<List<Integer>> graph = new ArrayList<>();
 
         // We leave index 0 with an empty list, so we can start indexing from 1
-        for (int i = 0; i < n + 1; i++) {
+        for (int i = 0; i < nodes + 1; i++) {
             graph.add(new ArrayList<>());
         }
 
         // Construct the graph by adding pairs
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < nodes; i++) {
             String[] split = scanner.nextLine().split(":");
 
             // Add directed pairs to the adjacency list
@@ -42,8 +41,8 @@ public class DistanceBetweenVertices {
             int destination = data[1];
 
             // Initialize arrays to track visited nodes and previous nodes
-            visited = new boolean[n + 1];
-            prevNodes = new int[n + 1];
+            visited = new boolean[nodes + 1];
+            prevNodes = new int[nodes + 1];
 
             // Initialize prevNodes array with -1 (indicating no previous node)
             Arrays.fill(prevNodes, -1);
@@ -62,7 +61,7 @@ public class DistanceBetweenVertices {
                 prevNode = prevNodes[prevNode];
             }
 
-            System.out.printf("{%d, %d} -> %d%n", source, destination, path.size() -1 == 0 ? -1 : path.size()-1);
+            System.out.printf("{%d, %d} -> %d%nodes", source, destination, path.size() -1 == 0 ? -1 : path.size()-1);
         }
 
 
