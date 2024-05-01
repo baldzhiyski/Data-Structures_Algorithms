@@ -58,7 +58,7 @@ public class DistanceBetweenVerticesSecond {
         queue.offer(source);
 
         // Initialize a boolean array to mark visited nodes
-        boolean[] visited = new boolean[graph.length];
+        boolean[] visited = new boolean[graph.length + 1];
 
         // Mark the source node as visited
         visited[source] = true;
