@@ -20,7 +20,7 @@ public class RodCutting {
 
         System.out.println(maxProfit);
 
-        reconstructSolution(maxProfit);
+        reconstructSolution(length);
     }
 
     private static int cutRope(int length) {
