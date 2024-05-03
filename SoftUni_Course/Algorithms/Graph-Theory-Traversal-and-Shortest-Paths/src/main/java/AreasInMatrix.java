@@ -53,6 +53,9 @@ public class AreasInMatrix {
                 char key = matrix[edge.source[0]][edge.source[1]];
                 areas.putIfAbsent(key,0);
                 areas.put(key,areas.get(key) + 1);
+
+                // Here we mark all the symbols in our area and do not count them. We do that until we reach that the destination
+                // of the edge is null ( that means we are going to another area)
                 bfs(i);
             }
         }
