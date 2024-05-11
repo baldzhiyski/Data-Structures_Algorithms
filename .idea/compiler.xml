@@ -11,12 +11,13 @@
         <module name="ТripАdministrator" />
         <module name="Hash-Tables-Sets-and-Maps-Skeleton" />
         <module name="Heaps-BST" />
-        <module name="Red-Black-Trees-and-AA-Trees-Lab-Skeleton" />
         <module name="Trees-Representation-Traversal" />
-        <module name="Graph-Theory-Lab" />
         <module name="Linear-DS" />
-        <module name="Royal-Arena" />
         <module name="LinearDS" />
+        <module name="Red-Black-Trees-and-AA-Trees-Lab-Skeleton" />
+        <module name="Graph-Theory-Lab" />
+        <module name="Dijkstra-MST" />
+        <module name="Royal-Arena" />
         <module name="BarberShop" />
       </profile>
     </annotationProcessing>
