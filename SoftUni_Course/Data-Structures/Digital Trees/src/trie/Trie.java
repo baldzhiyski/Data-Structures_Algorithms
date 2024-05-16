@@ -86,6 +86,7 @@ public class Trie implements Tree{
                 break;
             } else if (current.getChildren().isEmpty()) {
                 // If the current node has no children, remove it from its parent's children map
+                // This prevents cases where we have similar words
                 list.get(i - 1).getChildren().remove(current.getCharacter());
             }
         }
