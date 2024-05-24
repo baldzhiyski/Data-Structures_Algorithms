@@ -11,6 +11,7 @@
         <module name="ТripАdministrator" />
         <module name="Hash-Tables-Sets-and-Maps-Skeleton" />
         <module name="Heaps-BST" />
+        <module name="Graphs-Strongly-Connected-Components-Max-Flow" />
         <module name="Trees-Representation-Traversal" />
         <module name="Linear-DS" />
         <module name="LinearDS" />
