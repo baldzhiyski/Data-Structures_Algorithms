@@ -1,4 +1,4 @@
-package knapsack;
+package knapsack.recurssive;
 
 import java.util.ArrayList;
 import java.util.Arrays;
