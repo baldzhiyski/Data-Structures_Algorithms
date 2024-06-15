@@ -16,9 +16,9 @@
         <module name="Linear-DS" />
         <module name="LinearDS" />
         <module name="Red-Black-Trees-and-AA-Trees-Lab-Skeleton" />
-        <module name="Graph-Theory-Lab" />
         <module name="Dijkstra-MST" />
         <module name="Royal-Arena" />
+        <module name="Graph-Theory-Traversal-and-Shortest-Paths" />
         <module name="BarberShop" />
       </profile>
     </annotationProcessing>
