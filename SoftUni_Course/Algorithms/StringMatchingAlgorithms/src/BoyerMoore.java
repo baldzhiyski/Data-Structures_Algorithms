@@ -18,42 +18,59 @@ public class BoyerMoore {
     private static int[] buildGoodSuffixTable(String pattern) {
         int patternLength = pattern.length();
         int[] goodSuffixTable = new int[patternLength];
-        int[] suffixes = new int[patternLength];
+        int[] suffixes = new int[patternLength + 1];
 
+        Arrays.fill(goodSuffixTable, patternLength);
         Arrays.fill(suffixes, -1);
-        suffixes[patternLength - 1] = patternLength;
 
         // Calculate suffixes array
-        for (int i = patternLength - 2, j = patternLength - 1; i >= 0; i--) {
-            while (j < patternLength - 1 && pattern.charAt(i) != pattern.charAt(j)) {
-                if (suffixes[j] == -1) {
-                    suffixes[j] = j - i - 1;
+        int f = 0, g;
+        suffixes[patternLength - 1] = patternLength;
+        g = patternLength - 1;
+        for (int i = patternLength - 2; i >= 0; --i) {
+            if (i > g && suffixes[i + patternLength - 1 - f] < i - g) {
+                suffixes[i] = suffixes[i + patternLength - 1 - f];
+            } else {
+                if (i < g) {
+                    g = i;
                 }
-                j = patternLength - suffixes[j] - 1;
+                f = i;
+                while (g >= 0 && pattern.charAt(g) == pattern.charAt(g + patternLength - 1 - f)) {
+                    --g;
+                }
+                suffixes[i] = f - g;
             }
-            suffixes[i] = --j;
         }
 
         // Calculate good suffix table using the suffixes array
-        Arrays.fill(goodSuffixTable, patternLength);
-        for (int i = patternLength - 1; i >= 0; i--) {
-            if (suffixes[i] == i + 1) {
-                for (int j = 0; j < patternLength - i - 1; j++) {
+        for (int i = 0; i < patternLength; i++) {
+            goodSuffixTable[i] = patternLength;
+        }
+        int j = 0;
+        for (int i = patternLength - 1; i >= -1; i--) {
+            if (i == -1 || suffixes[i] == i + 1) {
+                while (j < patternLength - 1 - i) {
                     if (goodSuffixTable[j] == patternLength) {
-                        goodSuffixTable[j] = patternLength - i - 1;
+                        goodSuffixTable[j] = patternLength - 1 - i;
                     }
+                    j++;
                 }
             }
         }
-        for (int i = 0; i < patternLength - 1; i++) {
-            goodSuffixTable[patternLength - suffixes[i] - 1] = patternLength - i - 1;
+        for (int i = 0; i <= patternLength - 2; i++) {
+            goodSuffixTable[patternLength - 1 - suffixes[i]] = patternLength - 1 - i;
         }
+
         return goodSuffixTable;
     }
 
     // Method to search for the pattern in the text using Boyer-Moore algorithm
     public static List<Integer> boyerMooreSearch(String text, String pattern) {
         List<Integer> result = new ArrayList<>();
+        if (pattern.isEmpty() || text.isEmpty()) {
+            return result;
+        }
+
         Map<Character, Integer> badCharTable = buildBadCharacterTable(pattern);
         int[] goodSuffixTable = buildGoodSuffixTable(pattern);
 
