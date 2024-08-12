@@ -47,10 +47,14 @@ public class Knapsack {
 
             for (int capacityCol = 0; capacityCol <= capacity; capacityCol++) {
 
+                // Here we look up to the cell and see if we do not include the item what value are we going to have
                 int excluded = dp[itemRow - 1][capacityCol];
+                // If there is not enough capacity yet we overwrite the value of the excluded from the top
                 if (capacityCol - item.weight < 0) {
                     dp[itemRow][capacityCol] = excluded;
                 } else {
+
+                    // Here we  include the item and then we take the maximum of it
                     int included = dp[itemRow - 1][capacityCol - item.weight] + item.price;
 
                     if(excluded> included){

@@ -9,7 +9,7 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
 
     private E key;
     private SecondTree<E> parent;
-    private List<SecondTree<E>> children;
+    private final List<SecondTree<E>> children;
 
     public SecondTree(E value, SecondTree<E>... subtrees) {
         this.key = value;
@@ -71,11 +71,7 @@ public class SecondTree<E> implements AbstractSecondTree<E> {
 
 
     private String getPadding(int level) {
-        StringBuilder res = new StringBuilder();
-        for (int i = 0; i < level; i++) {
-            res.append(" ");
-        }
-        return res.toString();
+        return " ".repeat(Math.max(0, level));
     }
 
     /*

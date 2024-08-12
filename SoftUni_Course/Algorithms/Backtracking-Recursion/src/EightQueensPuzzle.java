@@ -24,6 +24,8 @@ public class EightQueensPuzzle {
             if (canPlaceQueen(row, col)) {
                 putQueen(row, col);
                 findQueenPositions(row + 1);
+
+                // Use Backtracking to remove the queens
                 removeQueen(row, col);
             }
         }

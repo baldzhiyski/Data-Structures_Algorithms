@@ -59,18 +59,19 @@ public class ArrayDeque<E> implements Deque<E> {
         Object[] newElements = new Object[newCapacity];
         int middle = newCapacity/2;
 
+        // We want to set the new in the middle so we need to make small calculation
         int begin = middle - this.size/2;
         int index = this.head;
 
-        // We want to set the new in the middle so we need to make small calculation
-
+        // We copy the elements from the previous array in the middle of the new one
         for (int i = begin; index<=this.tail ; i++) {
             newElements[i] = this.elements[index++];
         }
-        this.head=begin;
 
-        // Here we want to go to the end
+        // We update the head and tail indices
+        this.head=begin;
         this.tail = this.head +this.size -1;
+
         return  newElements;
     }
 

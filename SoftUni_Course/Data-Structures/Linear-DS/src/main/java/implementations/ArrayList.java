@@ -73,7 +73,7 @@ public class ArrayList<E> implements List<E> {
     @Override
     public E get(int index) {
         if(!validIndex(index)){
-             throw new IndexOutOfBoundsException(String.format("Cannot get index %d ! Invalid index !"));
+             throw new IndexOutOfBoundsException(String.format("Cannot get index %d ! Invalid index !",index));
         }
 
         return (E) this.elements[index];
