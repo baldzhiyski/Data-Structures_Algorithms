@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 /**
  * A class representing the solution for transforming one string into another with minimal cost.
@@ -36,6 +38,47 @@ public class MinimumEditDistance {
             }
         }
 
+
+        // Reconstruct the path
+        List<String> operations = new ArrayList<>();
+        int i = first.length;
+        int j = second.length;
+
+        while (i > 0 && j > 0) {
+            if (first[i - 1] == second[j - 1]) {
+                // No operation needed (characters are the same)
+                i--;
+                j--;
+            } else if (dp[i][j] == dp[i - 1][j - 1] + costReplace) {
+                operations.add("Replace " + first[i - 1] + " with " + second[j - 1]);
+                i--;
+                j--;
+            } else if (dp[i][j] == dp[i][j - 1] + costInsert) {
+                operations.add("Insert " + second[j - 1]);
+                j--;
+            } else {
+                operations.add("Delete " + first[i - 1]);
+                i--;
+            }
+        }
+
+        // Handle remaining characters
+        while (i > 0) {
+            operations.add("Delete " + first[i - 1]);
+            i--;
+        }
+
+        while (j > 0) {
+            operations.add("Insert " + second[j - 1]);
+            j--;
+        }
+
+        // Print the result
         System.out.println("Minimum edit distance: " + dp[first.length][second.length]);
+        System.out.println("Operations:");
+        for (int k = operations.size() - 1; k >= 0; k--) {  // Reverse the list to print in the correct order
+            System.out.println(operations.get(k));
+        }
+
     }
 }
