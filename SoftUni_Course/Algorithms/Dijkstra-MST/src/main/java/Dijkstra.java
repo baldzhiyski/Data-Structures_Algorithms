@@ -51,6 +51,9 @@ public class Dijkstra {
                         // Update the distance and previous node
                         distances[childNode] = newDistance;
                         prev[childNode] = parent;
+
+                        // Re-insert the child node into the queue with updated distance
+                        queue.offer(childNode);
                     }
                 }
             }
